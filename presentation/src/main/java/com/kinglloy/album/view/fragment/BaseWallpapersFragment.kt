@@ -392,13 +392,15 @@ abstract class BaseWallpapersFragment : Fragment(), WallpaperListView {
             }
             val downloadingItem = presenter.getDownloadingItem()
             if (WallpaperFileHelper.isNeedDownloadWallpaper(item.lazyDownload,
-                    item.storePath) || (downloadingItem != null
-                    && TextUtils.equals(downloadingItem.wallpaperId, item.wallpaperId))) {
+                            item.storePath) || (downloadingItem != null
+                            && TextUtils.equals(downloadingItem.wallpaperId, item.wallpaperId))) {
                 holder.downloadOverlayView.visibility = View.VISIBLE
             } else {
                 holder.downloadOverlayView.visibility = View.GONE
             }
 
+            holder.tvName.visibility =
+                    if (item.pro || !TextUtils.isEmpty(item.name)) View.VISIBLE else View.GONE
             holder.tvName.background = if (item.pro) proBackground else normalBackground
 //            holder.icPro.visibility = if (item.pro) View.VISIBLE else View.GONE
             holder.tvName.text = item.name
