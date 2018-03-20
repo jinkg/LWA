@@ -20,6 +20,11 @@ public enum AlbumUriEnum {
     VIDEO_WALLPAPER_PREVIEWING(503, "video_wallpaper/previewing", null),
     VIDEO_WALLPAPER_ID(501, "video_wallpaper/*", null),
 
+    HD_WALLPAPER(600, "hd_wallpaper", AlbumDatabase.Tables.HD_WALLPAPER),
+    HD_WALLPAPER_SELECTED(602, "hd_wallpaper/selected", null),
+    HD_WALLPAPER_PREVIEWING(603, "hd_wallpaper/previewing", null),
+    HD_WALLPAPER_ID(601, "hd_wallpaper/*", null),
+
     ACTIVE_SERVICE(200, "active_service", AlbumDatabase.Tables.ACTIVE_SERVICE),
 
     PREVIEWING_WALLPAPER(400, "previewing_wallpaper", AlbumDatabase.Tables.PREVIEWING_WALLPAPER);

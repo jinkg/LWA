@@ -19,7 +19,8 @@ import javax.inject.Inject
 class ProxyProvider @Inject constructor(private val getPreviewWallpaper: GetPreviewWallpaper,
                                         private val getStyleWallpaperSettings: GetStyleWallpaperSettings) {
     companion object {
-        private val STYLE_PROXY_CLASS = "com.kinglloy.album.engine.style.StyleWallpaperProxy"
+        private const val STYLE_PROXY_CLASS = "com.kinglloy.album.engine.style.StyleWallpaperProxy"
+        private const val HD_PROXY_CLASS = "com.kinglloy.album.engine.hd.HDWallpaperProxy"
     }
 
     fun provideProxy(host: Context): WallpaperService {
@@ -30,8 +31,8 @@ class ProxyProvider @Inject constructor(private val getPreviewWallpaper: GetPrev
         if (previewing.isDefault) {
             return BokehRainbowWallpaper(host)
         }
-        if (previewing.wallpaperType == WallpaperType.STYLE) {
-            return try {
+        when {
+            previewing.wallpaperType == WallpaperType.STYLE -> return try {
                 val constructor = Class.forName(STYLE_PROXY_CLASS)
                         .getConstructor(Context::class.java, String::class.java,
                                 GetStyleWallpaperSettings::class.java)
@@ -41,14 +42,23 @@ class ProxyProvider @Inject constructor(private val getPreviewWallpaper: GetPrev
                 e.printStackTrace()
                 BokehRainbowWallpaper(host)
             }
-        } else if (previewing.wallpaperType == WallpaperType.VIDEO) {
-            return VideoWallpaper(host, previewing.storePath)
-        } else {
-            val proxy = ProxyApi.getProxy(host, previewing.storePath, previewing.providerName)
-            if (proxy != null) {
-                return proxy
+            previewing.wallpaperType == WallpaperType.VIDEO ->
+                return VideoWallpaper(host, previewing.storePath)
+            previewing.wallpaperType == WallpaperType.LIVE -> {
+                val proxy = ProxyApi.getProxy(host, previewing.storePath, previewing.providerName)
+                if (proxy != null) {
+                    return proxy
+                }
+                return BokehRainbowWallpaper(host)
             }
-            return BokehRainbowWallpaper(host)
+            else -> return try {
+                val constructor = Class.forName(HD_PROXY_CLASS)
+                        .getConstructor(Context::class.java, String::class.java)
+                return constructor.newInstance(host, previewing.storePath) as WallpaperService
+            } catch (e: Exception) {
+                e.printStackTrace()
+                BokehRainbowWallpaper(host)
+            }
         }
     }
 }

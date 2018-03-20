@@ -2,6 +2,9 @@
 -keep public class com.kinglloy.album.engine.style.StyleWallpaperProxy{
     *;
 }
+-keep public class com.kinglloy.album.engine.hd.HDWallpaperProxy{
+    *;
+}
 -keep public class com.yalin.style.engine.GLWallpaperServiceProxy{
     *;
 }

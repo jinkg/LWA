@@ -174,6 +174,45 @@ public class WallpaperEntity {
         return wallpaperEntity;
     }
 
+    public static List<WallpaperEntity> hdWallpaperValues(Cursor cursor) {
+        List<WallpaperEntity> validWallpapers = new ArrayList<>();
+        while (cursor != null && cursor.moveToNext()) {
+            WallpaperEntity wallpaperEntity = hdWallpaperValue(cursor);
+            validWallpapers.add(wallpaperEntity);
+        }
+        return validWallpapers;
+    }
+
+    public static WallpaperEntity hdWallpaperValue(Cursor cursor) {
+        WallpaperEntity wallpaperEntity = new WallpaperEntity();
+
+        wallpaperEntity.id = cursor.getInt(cursor.getColumnIndex(
+                AlbumContract.HDWallpaper._ID));
+        wallpaperEntity.name = cursor.getString(cursor.getColumnIndex(
+                AlbumContract.HDWallpaper.COLUMN_NAME_NAME));
+        wallpaperEntity.wallpaperId = cursor.getString(cursor.getColumnIndex(
+                AlbumContract.HDWallpaper.COLUMN_NAME_WALLPAPER_ID));
+        wallpaperEntity.iconUrl = cursor.getString(cursor.getColumnIndex(
+                AlbumContract.HDWallpaper.COLUMN_NAME_ICON_URL));
+        wallpaperEntity.downloadUrl = cursor.getString(cursor.getColumnIndex(
+                AlbumContract.HDWallpaper.COLUMN_NAME_DOWNLOAD_URL));
+        wallpaperEntity.checkSum = cursor.getString(cursor.getColumnIndex(
+                AlbumContract.HDWallpaper.COLUMN_NAME_CHECKSUM));
+        wallpaperEntity.storePath = cursor.getString(cursor.getColumnIndex(
+                AlbumContract.HDWallpaper.COLUMN_NAME_STORE_PATH));
+        wallpaperEntity.isSelected = cursor.getInt(cursor.getColumnIndex(
+                AlbumContract.HDWallpaper.COLUMN_NAME_SELECTED)) == 1;
+        wallpaperEntity.isPreviewing = cursor.getInt(cursor.getColumnIndex(
+                AlbumContract.HDWallpaper.COLUMN_NAME_PREVIEWING)) == 1;
+        wallpaperEntity.size = cursor.getLong(cursor.getColumnIndex(
+                AlbumContract.HDWallpaper.COLUMN_NAME_SIZE));
+        wallpaperEntity.pro = cursor.getInt(cursor.getColumnIndex(
+                AlbumContract.HDWallpaper.COLUMN_NAME_PRO)) == 1;
+        wallpaperEntity.type = WallpaperType.HD;
+
+        return wallpaperEntity;
+    }
+
 
     @Override
     public boolean equals(Object obj) {

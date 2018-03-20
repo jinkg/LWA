@@ -1,4 +1,4 @@
-package com.kinglloy.album.engine.style.render;
+package com.kinglloy.album.engine.hd.render;
 
 import android.app.ActivityManager;
 import android.content.Context;
@@ -15,8 +15,7 @@ import android.util.Log;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
 
-import com.kinglloy.album.domain.StyleWallpaperSettings;
-import com.kinglloy.album.engine.style.StyleWallpaperProxy;
+import com.kinglloy.album.engine.hd.HDWallpaperProxy;
 import com.kinglloy.album.engine.util.MathUtil;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -26,18 +25,16 @@ import javax.microedition.khronos.opengles.GL10;
  * YaLin 2016/12/30.
  */
 
-public class StyleBlurRenderer implements GLSurfaceView.Renderer {
+public class HDBlurRenderer implements GLSurfaceView.Renderer {
     private static final String TAG = "StyleBlurRenderer";
 
     private static final int CROSSFADE_ANIMATION_DURATION = 750;
     private static final int BLUR_ANIMATION_DURATION = 750;
 
-    public static final int DEFAULT_BLUR = 150; // max 500
-    public static final int DEFAULT_GREY = 0; // max 500
-    public static final int DEMO_BLUR = 250;
+    public static final int DEFAULT_BLUR = 1; // max 500
+    public static final int DEFAULT_GREY = 1; // max 500
     public static final int DEMO_DIM = 64;
-    public static final int DEMO_GREY = 0;
-    public static final int DEFAULT_MAX_DIM = 128; // technical max 255
+    public static final int DEFAULT_MAX_DIM = 64; // technical max 255
     public static final float DIM_RANGE = 0.5f; // percent of max dim
 
     private boolean mDemoMode;
@@ -68,7 +65,7 @@ public class StyleBlurRenderer implements GLSurfaceView.Renderer {
     private volatile float mNormalOffsetX;
     private volatile RectF mCurrentViewport = new RectF(); // [-1, -1] to [1, 1], flipped
 
-    private StyleWallpaperProxy mContext;
+    private HDWallpaperProxy mContext;
 
     private boolean mIsBlurred = true;
     private boolean mBlurRelatedToArtDetailMode = false;
@@ -76,7 +73,7 @@ public class StyleBlurRenderer implements GLSurfaceView.Renderer {
     private TickingFloatAnimator mBlurAnimator;
     private TickingFloatAnimator mCrossfadeAnimator = TickingFloatAnimator.create().from(0);
 
-    public StyleBlurRenderer(StyleWallpaperProxy context, Callbacks callbacks) {
+    public HDBlurRenderer(HDWallpaperProxy context, Callbacks callbacks) {
         mContext = context;
         mCallbacks = callbacks;
 
@@ -99,11 +96,7 @@ public class StyleBlurRenderer implements GLSurfaceView.Renderer {
 
     public void recomputeMaxPrescaledBlurPixels() {
         // Compute blur sizes
-        StyleWallpaperSettings settings = mContext.getMStyleWallpaperSettings();
         int blurAmount = DEFAULT_BLUR;
-        if (settings != null) {
-            blurAmount = settings.enableEffect ? settings.blur : 0;
-        }
         float maxBlurRadiusOverScreenHeight = blurAmount * 0.0001f;
         DisplayMetrics dm = mContext.getResources().getDisplayMetrics();
         int maxBlurPx = (int) (dm.heightPixels * maxBlurRadiusOverScreenHeight);
@@ -115,19 +108,11 @@ public class StyleBlurRenderer implements GLSurfaceView.Renderer {
     }
 
     public void recomputeMaxDimAmount() {
-        StyleWallpaperSettings settings = mContext.getMStyleWallpaperSettings();
         mMaxDim = DEFAULT_MAX_DIM;
-        if (settings != null) {
-            mMaxDim = settings.enableEffect ? settings.dim : 20;
-        }
     }
 
     public void recomputeGreyAmount() {
-        StyleWallpaperSettings settings = mContext.getMStyleWallpaperSettings();
         mMaxGrey = DEFAULT_GREY;
-        if (settings != null) {
-            mMaxGrey = settings.enableEffect ? settings.grey : 0;
-        }
     }
 
     public void onSurfaceCreated(GL10 unused, EGLConfig config) {
@@ -545,9 +530,12 @@ public class StyleBlurRenderer implements GLSurfaceView.Renderer {
         mBlurAnimator
                 .to(isBlurred ? mBlurKeyframes : 0)
                 .withDuration(BLUR_ANIMATION_DURATION * (mDemoMode ? 5 : 1))
-                .withEndListener(() -> {
-                    if (isBlurred && artDetailMode) {
-                        System.gc();
+                .withEndListener(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (isBlurred && artDetailMode) {
+                            System.gc();
+                        }
                     }
                 })
                 .start();

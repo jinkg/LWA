@@ -10,6 +10,7 @@ import android.provider.BaseColumns;
 import com.kinglloy.album.data.R;
 import com.kinglloy.album.data.log.LogUtil;
 import com.kinglloy.album.data.repository.datasource.provider.AlbumContract.ActiveService;
+import com.kinglloy.album.data.repository.datasource.provider.AlbumContract.HDWallpaper;
 import com.kinglloy.album.data.repository.datasource.provider.AlbumContract.LiveWallpaper;
 import com.kinglloy.album.data.repository.datasource.provider.AlbumContract.PreviewingWallpaper;
 import com.kinglloy.album.data.repository.datasource.provider.AlbumContract.StyleWallpaper;
@@ -30,7 +31,8 @@ public class AlbumDatabase extends SQLiteOpenHelper {
     private static final int VERSION_2017_9_26 = 1;
     private static final int VERSION_2017_9_27 = 2;
     private static final int VERSION_2017_11_3 = 3;
-    private static final int CUR_DATABASE_VERSION = VERSION_2017_11_3;
+    private static final int VERSION_2018_3_20 = 4;
+    private static final int CUR_DATABASE_VERSION = VERSION_2018_3_20;
 
     private final Context mContext;
 
@@ -38,6 +40,7 @@ public class AlbumDatabase extends SQLiteOpenHelper {
         String LIVE_WALLPAPER = LiveWallpaper.TABLE_NAME;
         String STYLE_WALLPAPER = StyleWallpaper.TABLE_NAME;
         String VIDEO_WALLPAPER = VideoWallpaper.TABLE_NAME;
+        String HD_WALLPAPER = HDWallpaper.TABLE_NAME;
         String ACTIVE_SERVICE = ActiveService.TABLE_NAME;
         String PREVIEWING_WALLPAPER = PreviewingWallpaper.TABLE_NAME;
     }
@@ -66,6 +69,7 @@ public class AlbumDatabase extends SQLiteOpenHelper {
 
         upgradeFrom20170926to20170927(db);
         upgradeFrom20170927to20171103(db);
+        upgradeFrom20171103to20180320(db);
     }
 
     @Override
@@ -88,6 +92,11 @@ public class AlbumDatabase extends SQLiteOpenHelper {
             version = VERSION_2017_11_3;
         }
 
+        if (version == VERSION_2017_11_3) {
+            upgradeFrom20171103to20180320(db);
+            version = VERSION_2018_3_20;
+        }
+
         if (version != CUR_DATABASE_VERSION) {
             LogUtil.E(TAG, "Upgrade unsuccessful -- destroying old data during upgrade");
 
@@ -95,6 +104,7 @@ public class AlbumDatabase extends SQLiteOpenHelper {
             db.execSQL("DROP TABLE IF EXISTS " + Tables.ACTIVE_SERVICE);
             db.execSQL("DROP TABLE IF EXISTS " + Tables.STYLE_WALLPAPER);
             db.execSQL("DROP TABLE IF EXISTS " + Tables.VIDEO_WALLPAPER);
+            db.execSQL("DROP TABLE IF EXISTS " + Tables.HD_WALLPAPER);
             db.execSQL("DROP TABLE IF EXISTS " + Tables.PREVIEWING_WALLPAPER);
             onCreate(db);
             version = CUR_DATABASE_VERSION;
@@ -154,6 +164,21 @@ public class AlbumDatabase extends SQLiteOpenHelper {
                 WallpaperType.LIVE.getTypeInt());
         contentValues.put(PreviewingWallpaper.COLUMN_NAME_WALLPAPER_ID, "0");
         db.insert(Tables.PREVIEWING_WALLPAPER, null, contentValues);
+    }
+
+    private void upgradeFrom20171103to20180320(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE " + Tables.HD_WALLPAPER + " ("
+                + BaseColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + HDWallpaper.COLUMN_NAME_WALLPAPER_ID + " TEXT,"
+                + HDWallpaper.COLUMN_NAME_ICON_URL + " TEXT,"
+                + HDWallpaper.COLUMN_NAME_DOWNLOAD_URL + " TEXT,"
+                + HDWallpaper.COLUMN_NAME_NAME + " TEXT,"
+                + HDWallpaper.COLUMN_NAME_STORE_PATH + " TEXT,"
+                + HDWallpaper.COLUMN_NAME_CHECKSUM + " TEXT,"
+                + HDWallpaper.COLUMN_NAME_SELECTED + " INTEGER DEFAULT 0,"
+                + HDWallpaper.COLUMN_NAME_PREVIEWING + " INTEGER NOT NULL DEFAULT 0,"
+                + HDWallpaper.COLUMN_NAME_SIZE + " INTEGER DEFAULT 0,"
+                + HDWallpaper.COLUMN_NAME_PRO + " INTEGER DEFAULT 0);");
     }
 
     public static void deleteDatabase(Context context) {

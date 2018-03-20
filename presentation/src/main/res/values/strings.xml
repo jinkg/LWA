@@ -37,6 +37,7 @@
     <string name="video_type_title">Video</string>
     <string name="live_type_title">Live</string>
     <string name="style_type_title">Style</string>
+    <string name="hd_type_title">HD</string>
 
     <string name="string_cancel">Cancel</string>
 

@@ -20,11 +20,15 @@ public interface WallpaperRepository {
 
     Observable<List<Wallpaper>> getVideoWallpapers();
 
+    Observable<List<Wallpaper>> getHDWallpapers();
+
     Observable<List<Wallpaper>> loadLiveWallpapers();
 
     Observable<List<Wallpaper>> loadStyleWallpapers();
 
     Observable<List<Wallpaper>> loadVideoWallpapers();
+
+    Observable<List<Wallpaper>> loadHDWallpapers();
 
     Observable<List<Wallpaper>> getDownloadedWallpapers();
 

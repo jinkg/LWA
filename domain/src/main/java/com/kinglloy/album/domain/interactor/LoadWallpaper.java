@@ -36,6 +36,8 @@ public class LoadWallpaper extends UseCase<List<Wallpaper>, LoadWallpaper.Params
                 return repository.loadLiveWallpapers();
             case STYLE:
                 return repository.loadStyleWallpapers();
+            case HD:
+                return repository.loadHDWallpapers();
             default:
                 return repository.loadVideoWallpapers();
         }

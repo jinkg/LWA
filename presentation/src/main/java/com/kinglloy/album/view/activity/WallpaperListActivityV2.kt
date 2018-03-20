@@ -29,6 +29,7 @@ import com.kinglloy.album.view.SettingsView
 import com.kinglloy.album.view.component.MySecondarySwitchDrawerItem
 import com.kinglloy.album.view.component.OnProgressChangedListener
 import com.kinglloy.album.view.component.SecondarySeekDrawerItem
+import com.kinglloy.album.view.fragment.HDWallpapersFragment
 import com.kinglloy.album.view.fragment.LiveWallpapersFragment
 import com.kinglloy.album.view.fragment.StyleWallpapersFragment
 import com.kinglloy.album.view.fragment.VideoWallpapersFragment
@@ -49,34 +50,35 @@ class WallpaperListActivityV2 : AppCompatActivity(), SettingsView {
 
     companion object {
         val titleArray: IntArray = intArrayOf(
-                R.string.video_type_title,
                 R.string.live_type_title,
-                R.string.style_type_title
+                R.string.hd_type_title,
+                R.string.style_type_title,
+                R.string.video_type_title
         )
 
-        val SP_NAME = "WallpaperListActivity"
-        val SELECT_INDEX_KEY = "select_index"
+        const val SP_NAME = "WallpaperListActivity"
+        const val SELECT_INDEX_KEY = "select_index"
 
-        val ID_VIDEO_PROBLEM = 1000L
-        val ID_LIVE_PROBLEM = 1001L
+        const val ID_VIDEO_PROBLEM = 1000L
+        const val ID_LIVE_PROBLEM = 1001L
 
-        val ID_SWITCH = 2000L
-        val ID_BLUR = 2001L
-        val ID_DIM = 2002L
-        val ID_GREY = 2003L
+        const val ID_SWITCH = 2000L
+        const val ID_BLUR = 2001L
+        const val ID_DIM = 2002L
+        const val ID_GREY = 2003L
 
-        val ID_SEE_AD = 3000L
-        val ID_DONATE = 3001L
+        const val ID_SEE_AD = 3000L
+        const val ID_DONATE = 3001L
 
-        val ID_ABOUT = 4000L
+        const val ID_ABOUT = 4000L
 
-        val ID_MY_WALLPAPERS = 5000L
+        const val ID_MY_WALLPAPERS = 5000L
 
-        val ID_GET_PRO = 6000L
+        const val ID_GET_PRO = 6000L
     }
 
     @Inject
-    lateinit internal var presenter: SettingsPresenter
+    internal lateinit var presenter: SettingsPresenter
 
     private lateinit var viewPager: ViewPager
     private lateinit var drawer: Drawer
@@ -321,6 +323,8 @@ class WallpaperListActivityV2 : AppCompatActivity(), SettingsView {
                 .withHeader(R.layout.layout_drawer_header)
                 .withSelectedItem(-1)
                 .addDrawerItems(
+                        liveWallpaperDrawer,
+                        styleWallpaperDrawer,
                         ExpandableBadgeDrawerItem().withName(R.string.drawer_item_video_wallpaper)
                                 .withIcon(R.drawable.ic_drawer_video).withIdentifier(1)
                                 .withIconTintingEnabled(true)
@@ -333,8 +337,6 @@ class WallpaperListActivityV2 : AppCompatActivity(), SettingsView {
                                         .withLevel(2)
                                         .withOnDrawerItemClickListener(drawerItemClick)
                         ),
-                        liveWallpaperDrawer,
-                        styleWallpaperDrawer,
                         DividerDrawerItem(),
                         makeMeBetterAD,
                         getPro,
@@ -398,9 +400,10 @@ class WallpaperListActivityV2 : AppCompatActivity(), SettingsView {
     private inner class WallpaperTypesAdapter(fragmentManager: FragmentManager)
         : FragmentPagerAdapter(fragmentManager) {
         override fun getItem(position: Int): Fragment = when (position) {
-            0 -> VideoWallpapersFragment()
-            1 -> LiveWallpapersFragment()
-            else -> StyleWallpapersFragment()
+            0 -> LiveWallpapersFragment()
+            1 -> HDWallpapersFragment()
+            2 -> StyleWallpapersFragment()
+            else -> VideoWallpapersFragment()
         }
 
         override fun getCount() = titleArray.size

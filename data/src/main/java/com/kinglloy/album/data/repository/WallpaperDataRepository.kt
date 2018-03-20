@@ -37,6 +37,10 @@ class WallpaperDataRepository
     override fun getVideoWallpapers(): Observable<MutableList<Wallpaper>> =
             factory.createVideoDataStore().getWallpaperEntities().map(wallpaperMapper::transformList)
 
+    override fun getHDWallpapers(): Observable<MutableList<Wallpaper>> =
+            factory.createHDDataStore().getWallpaperEntities().map(wallpaperMapper::transformList)
+
+
     override fun loadLiveWallpapers(): Observable<List<Wallpaper>> {
         return factory.createRemoteLiveDataStore().getWallpaperEntities()
                 .map(wallpaperMapper::transformList)
@@ -49,6 +53,11 @@ class WallpaperDataRepository
 
     override fun loadVideoWallpapers(): Observable<MutableList<Wallpaper>> {
         return factory.createRemoteVideoDataStore().getWallpaperEntities()
+                .map(wallpaperMapper::transformList)
+    }
+
+    override fun loadHDWallpapers(): Observable<MutableList<Wallpaper>> {
+        return factory.createRemoteHDDataStore().getWallpaperEntities()
                 .map(wallpaperMapper::transformList)
     }
 

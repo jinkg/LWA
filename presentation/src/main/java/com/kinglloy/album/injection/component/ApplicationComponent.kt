@@ -7,10 +7,7 @@ import com.kinglloy.album.view.activity.WallpaperListActivity
 import com.kinglloy.album.injection.modules.ApplicationModule
 import com.kinglloy.album.view.activity.MyWallpapersActivity
 import com.kinglloy.album.view.activity.WallpaperListActivityV2
-import com.kinglloy.album.view.fragment.BaseWallpapersFragment
-import com.kinglloy.album.view.fragment.LiveWallpapersFragment
-import com.kinglloy.album.view.fragment.StyleWallpapersFragment
-import com.kinglloy.album.view.fragment.VideoWallpapersFragment
+import com.kinglloy.album.view.fragment.*
 
 import javax.inject.Singleton
 
@@ -30,6 +27,7 @@ interface ApplicationComponent {
     fun inject(videoWallpapersFragment: VideoWallpapersFragment)
     fun inject(liveWallpapersFragment: LiveWallpapersFragment)
     fun inject(styleWallpapersFragment: StyleWallpapersFragment)
+    fun inject(hdWallpapersFragment: HDWallpapersFragment)
 
     fun inject(mainActivity: WallpaperListActivity)
     fun inject(mainActivity: WallpaperListActivityV2)

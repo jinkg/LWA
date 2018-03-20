@@ -35,9 +35,10 @@
     <string name="use_wallpaper">开始使用</string>
     <string name="my_wallpaper">已下载的壁纸</string>
 
-    <string name="video_type_title">视频壁纸</string>
-    <string name="live_type_title">动态壁纸</string>
-    <string name="style_type_title">艺术壁纸</string>
+    <string name="video_type_title">视频</string>
+    <string name="live_type_title">动态</string>
+    <string name="style_type_title">艺术</string>
+    <string name="hd_type_title">高清</string>
 
     <string name="string_cancel">取消</string>
 

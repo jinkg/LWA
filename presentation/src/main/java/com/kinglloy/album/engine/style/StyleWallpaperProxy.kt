@@ -36,7 +36,7 @@ class StyleWallpaperProxy(host: Context, val wallpaperPath: String,
     : GLWallpaperServiceProxy(host) {
 
     companion object {
-        private val TEMPORARY_FOCUS_DURATION_MILLIS: Long = 3000
+        private const val TEMPORARY_FOCUS_DURATION_MILLIS: Long = 3000
     }
 
     private var mInitialized = false

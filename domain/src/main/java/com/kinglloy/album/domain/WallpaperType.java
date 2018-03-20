@@ -8,7 +8,8 @@ package com.kinglloy.album.domain;
 public enum WallpaperType {
     VIDEO(0),
     LIVE(1),
-    STYLE(2);
+    STYLE(2),
+    HD(3);
 
     private int typeInt;
 
@@ -28,6 +29,8 @@ public enum WallpaperType {
                 return LIVE;
             case 2:
                 return STYLE;
+            case 3:
+                return HD;
             default:
                 return LIVE;
         }

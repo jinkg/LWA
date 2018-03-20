@@ -1,6 +1,7 @@
 package com.kinglloy.album.data.entity.mapper;
 
 import com.fernandocejas.arrow.checks.Preconditions;
+import com.kinglloy.album.data.entity.TempHDWallpaperEntity;
 import com.kinglloy.album.data.entity.TempStyleWallpaperEntity;
 import com.kinglloy.album.data.entity.TempVideoWallpaperEntity;
 import com.kinglloy.album.data.entity.WallpaperEntity;
@@ -102,11 +103,29 @@ public class WallpaperEntityMapper {
         List<WallpaperEntity> results = new ArrayList<>();
         for (TempVideoWallpaperEntity tempEntity : temp) {
             WallpaperEntity entity = new WallpaperEntity();
-            entity.type = WallpaperType.STYLE;
+            entity.type = WallpaperType.VIDEO;
             entity.checkSum = tempEntity.checksum;
             entity.downloadUrl = tempEntity.videoUri;
             entity.iconUrl = tempEntity.iconUri;
             entity.name = tempEntity.name;
+            entity.wallpaperId = tempEntity.wallpaperId;
+            entity.size = tempEntity.size;
+            entity.pro = tempEntity.pro;
+            results.add(entity);
+        }
+        return results;
+    }
+
+    public List<WallpaperEntity> transformFromTempHDEntity(ArrayList<TempHDWallpaperEntity> temp) {
+        Preconditions.checkNotNull(temp, "TempEntities can not be null.");
+        List<WallpaperEntity> results = new ArrayList<>();
+        for (TempHDWallpaperEntity tempEntity : temp) {
+            WallpaperEntity entity = new WallpaperEntity();
+            entity.type = WallpaperType.HD;
+            entity.checkSum = tempEntity.checksum;
+            entity.downloadUrl = tempEntity.imageUri;
+            entity.iconUrl = tempEntity.imageUri;
+            entity.name = tempEntity.title;
             entity.wallpaperId = tempEntity.wallpaperId;
             entity.size = tempEntity.size;
             entity.pro = tempEntity.pro;

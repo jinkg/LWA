@@ -15,9 +15,10 @@ import java.util.Set;
 
 public class WallpaperFileHelper {
 
-    public static final String LIVE_WALLPAPER_FOLDER = "component";
-    public static final String STYLE_WALLPAPER_FOLDER = "style_wallpaper";
-    public static final String VIDEO_WALLPAPER_FOLDER = "video_wallpaper";
+    private static final String LIVE_WALLPAPER_FOLDER = "component";
+    private static final String STYLE_WALLPAPER_FOLDER = "style_wallpaper";
+    private static final String VIDEO_WALLPAPER_FOLDER = "video_wallpaper";
+    private static final String HD_WALLPAPER_FOLDER = "hd_wallpaper";
 
     public static void deleteOldLiveComponent(Context context, Set<String> excludeNames) {
         File dir = getLiveWallpaperDir(context);
@@ -33,6 +34,12 @@ public class WallpaperFileHelper {
         File dir = getVideoWallpaperDir(context);
         deleteFiles(context, dir, excludeNames);
     }
+
+    public static void deleteOldHDWallpaper(Context context, Set<String> excludeNames) {
+        File dir = getHDWallpaperDir(context);
+        deleteFiles(context, dir, excludeNames);
+    }
+
 
     private static void deleteFiles(Context context, File dir, Set<String> excludeNames) {
         if (!dir.exists()) {
@@ -72,6 +79,10 @@ public class WallpaperFileHelper {
 
     public static File getVideoWallpaperDir(Context context) {
         return new File(context.getFilesDir(), VIDEO_WALLPAPER_FOLDER);
+    }
+
+    public static File getHDWallpaperDir(Context context) {
+        return new File(context.getFilesDir(), HD_WALLPAPER_FOLDER);
     }
 
     public static boolean isNeedDownloadWallpaper(boolean lazy, String storePath) {

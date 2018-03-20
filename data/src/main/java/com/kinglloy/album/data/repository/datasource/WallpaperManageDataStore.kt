@@ -21,7 +21,8 @@ import java.io.File
  */
 class WallpaperManageDataStore(val context: Context, private val caches: ArrayList<WallpaperCache>)
     : WallpaperDataStore {
-    @Synchronized override fun getPreviewWallpaperEntity(): WallpaperEntity {
+    @Synchronized
+    override fun getPreviewWallpaperEntity(): WallpaperEntity {
         var entity: WallpaperEntity? = null
         val uri = AlbumContract.PreviewingWallpaper.CONTENT_URI
         val cursor = context.contentResolver.query(uri, null, null, null, null)
@@ -39,6 +40,8 @@ class WallpaperManageDataStore(val context: Context, private val caches: ArrayLi
                         AlbumContract.LiveWallpaper.buildWallpaperUri(wallpaperId)
                     WallpaperType.STYLE.typeInt ->
                         AlbumContract.StyleWallpaper.buildWallpaperUri(wallpaperId)
+                    WallpaperType.HD.typeInt ->
+                        AlbumContract.HDWallpaper.buildWallpaperUri(wallpaperId)
                     else ->
                         AlbumContract.VideoWallpaper.buildWallpaperUri(wallpaperId)
                 }
@@ -56,6 +59,8 @@ class WallpaperManageDataStore(val context: Context, private val caches: ArrayLi
                             WallpaperEntity.liveWallpaperValue(wallpaperCursor)
                         WallpaperType.STYLE.typeInt ->
                             WallpaperEntity.styleWallpaperValue(wallpaperCursor)
+                        WallpaperType.HD.typeInt ->
+                            WallpaperEntity.hdWallpaperValue(wallpaperCursor)
                         else ->
                             WallpaperEntity.videoWallpaperValue(wallpaperCursor)
                     }
@@ -80,12 +85,15 @@ class WallpaperManageDataStore(val context: Context, private val caches: ArrayLi
             val videoWallpaperUri = AlbumContract.VideoWallpaper.CONTENT_URI
             val liveWallpaperUri = AlbumContract.LiveWallpaper.CONTENT_URI
             val styleWallpaperUri = AlbumContract.StyleWallpaper.CONTENT_URI
+            val hdWallpaperUri = AlbumContract.HDWallpaper.CONTENT_URI
 
             val videoWallpaperCursor = context.contentResolver.query(videoWallpaperUri,
                     null, null, null, null)
             val liveWallpaperCursor = context.contentResolver.query(liveWallpaperUri,
                     null, null, null, null)
             val styleWallpaperCursor = context.contentResolver.query(styleWallpaperUri,
+                    null, null, null, null)
+            val hdWallpaperCursor = context.contentResolver.query(hdWallpaperUri,
                     null, null, null, null)
 
             val downloadedWallpapers = ArrayList<WallpaperEntity>()
@@ -102,10 +110,15 @@ class WallpaperManageDataStore(val context: Context, private val caches: ArrayLi
                     val styleWallpapers = WallpaperEntity.styleWallpaperValues(styleWallpaperCursor)
                     downloadedWallpapers.addAll(filterDownloadedWallpapers(styleWallpapers))
                 }
+                if (hdWallpaperCursor != null) {
+                    val hdWallpapers = WallpaperEntity.hdWallpaperValues(hdWallpaperCursor)
+                    downloadedWallpapers.addAll(filterDownloadedWallpapers(hdWallpapers))
+                }
             } finally {
                 videoWallpaperCursor?.close()
                 liveWallpaperCursor?.close()
                 styleWallpaperCursor?.close()
+                hdWallpaperCursor?.close()
             }
 
             emitter.onNext(downloadedWallpapers)
@@ -125,6 +138,9 @@ class WallpaperManageDataStore(val context: Context, private val caches: ArrayLi
                     WallpaperType.LIVE -> {
                         NativeFileHelper.clearNativeFiles(context, wallpaper.storePath)
                         AlbumContract.LiveWallpaper.buildDeletedWallpaperUri(wallpaper.wallpaperId)
+                    }
+                    WallpaperType.HD -> {
+                        AlbumContract.HDWallpaper.buildDeletedWallpaperUri(wallpaper.wallpaperId)
                     }
                     else -> {
                         AlbumContract.StyleWallpaper.buildDeletedWallpaperUri(wallpaper.wallpaperId)
@@ -160,6 +176,10 @@ class WallpaperManageDataStore(val context: Context, private val caches: ArrayLi
                             selectPreviewUri = AlbumContract.StyleWallpaper.buildWallpaperUri(wallpaperId)
                             selectValue.put(AlbumContract.StyleWallpaper.COLUMN_NAME_SELECTED, 1)
                         }
+                        WallpaperType.HD.typeInt -> {
+                            selectPreviewUri = AlbumContract.HDWallpaper.buildWallpaperUri(wallpaperId)
+                            selectValue.put(AlbumContract.HDWallpaper.COLUMN_NAME_SELECTED, 1)
+                        }
                         else -> {
                             selectPreviewUri = AlbumContract.VideoWallpaper.buildWallpaperUri(wallpaperId)
                             selectValue.put(AlbumContract.VideoWallpaper.COLUMN_NAME_SELECTED, 1)
@@ -191,6 +211,13 @@ class WallpaperManageDataStore(val context: Context, private val caches: ArrayLi
                     AlbumContract.VideoWallpaper.CONTENT_SELECTED_URI,
                     unselectedVideoValue, null, null)
 
+            val unselectedHDValue = ContentValues()
+            unselectedHDValue.put(AlbumContract.HDWallpaper.COLUMN_NAME_SELECTED, 0)
+            // unselected hd old
+            context.contentResolver.update(
+                    AlbumContract.HDWallpaper.CONTENT_SELECTED_URI,
+                    unselectedHDValue, null, null)
+
             var selectedCount = 0
             if (selectPreviewUri != null) {
                 selectedCount = context.contentResolver.update(
@@ -210,6 +237,7 @@ class WallpaperManageDataStore(val context: Context, private val caches: ArrayLi
                 notifyChange(context, AlbumContract.LiveWallpaper.CONTENT_SELECT_PREVIEWING_URI)
                 notifyChange(context, AlbumContract.StyleWallpaper.CONTENT_SELECT_PREVIEWING_URI)
                 notifyChange(context, AlbumContract.VideoWallpaper.CONTENT_SELECT_PREVIEWING_URI)
+                notifyChange(context, AlbumContract.HDWallpaper.CONTENT_SELECT_PREVIEWING_URI)
             }
             emitter.onComplete()
         }

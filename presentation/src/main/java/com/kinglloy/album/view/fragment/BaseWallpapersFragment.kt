@@ -30,7 +30,6 @@ import com.kinglloy.album.data.utils.WallpaperFileHelper
 import com.kinglloy.album.exception.ErrorMessageFactory
 import com.kinglloy.album.model.WallpaperItem
 import com.kinglloy.album.presenter.WallpaperListPresenter
-import com.kinglloy.album.util.PackageUtil
 import com.kinglloy.album.util.formatSizeToString
 import com.kinglloy.album.view.WallpaperListView
 import com.kinglloy.album.view.activity.ADActivity
@@ -46,12 +45,12 @@ import javax.inject.Inject
  */
 abstract class BaseWallpapersFragment : Fragment(), WallpaperListView {
     companion object {
-        val TAG = "BaseWallpapersFragment"
-        val LOAD_STATE = "load_state"
+        const val TAG = "BaseWallpapersFragment"
+        const val LOAD_STATE = "load_state"
 
-        val LOAD_STATE_NORMAL = 0
-        val LOAD_STATE_LOADING = 1
-        val LOAD_STATE_RETRY = 2
+        const val LOAD_STATE_NORMAL = 0
+        const val LOAD_STATE_LOADING = 1
+        const val LOAD_STATE_RETRY = 2
     }
 
     private lateinit var wallpaperList: RecyclerView
@@ -63,7 +62,7 @@ abstract class BaseWallpapersFragment : Fragment(), WallpaperListView {
     private lateinit var normalBackground: Drawable
 
     @Inject
-    lateinit internal var presenter: WallpaperListPresenter
+    internal lateinit var presenter: WallpaperListPresenter
 
     val wallpapers = ArrayList<WallpaperItem>()
 

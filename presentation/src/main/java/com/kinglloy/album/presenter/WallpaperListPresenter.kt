@@ -36,13 +36,13 @@ class WallpaperListPresenter
                     val getPreviewWallpaper: GetPreviewWallpaper) : Presenter, DownloadListener {
 
     companion object {
-        val TAG = "WallpaperListPresenter"
-        val DOWNLOAD_STATE = "download_state"
-        val DOWNLOADING_ITEM = "download_item"
+        const val TAG = "WallpaperListPresenter"
+        const val DOWNLOAD_STATE = "download_state"
+        const val DOWNLOADING_ITEM = "download_item"
 
-        val DOWNLOAD_NONE = 0
-        val DOWNLOADING = 1
-        val DOWNLOAD_ERROR = 2
+        const val DOWNLOAD_NONE = 0
+        const val DOWNLOADING = 1
+        const val DOWNLOAD_ERROR = 2
 
         private var currentPreviewing: WallpaperItem? = null
     }
@@ -59,7 +59,8 @@ class WallpaperListPresenter
             LogUtil.D(TAG, "Uri change." + uri)
             if (uri == AlbumContract.LiveWallpaper.CONTENT_SELECT_PREVIEWING_URI ||
                     uri == AlbumContract.VideoWallpaper.CONTENT_SELECT_PREVIEWING_URI ||
-                    uri == AlbumContract.StyleWallpaper.CONTENT_SELECT_PREVIEWING_URI) {
+                    uri == AlbumContract.StyleWallpaper.CONTENT_SELECT_PREVIEWING_URI ||
+                    uri == AlbumContract.HDWallpaper.CONTENT_SELECT_PREVIEWING_URI) {
                 view?.selectWallpaper(wallpaperItemMapper
                         .transform(getPreviewWallpaper.previewing))
             }
@@ -76,6 +77,9 @@ class WallpaperListPresenter
                     WallpaperType.LIVE -> {
                         AlbumContract.LiveWallpaper.getDeletedWallpaperId(uri)
                     }
+                    WallpaperType.HD -> {
+                        AlbumContract.HDWallpaper.getDeletedWallpaperId(uri)
+                    }
                     else -> {
                         AlbumContract.StyleWallpaper.getDeletedWallpaperId(uri)
                     }
@@ -90,27 +94,39 @@ class WallpaperListPresenter
     fun setView(view: WallpaperListView) {
         this.view = view
 
-        if (view.getWallpaperType() == WallpaperType.LIVE) {
-            view.context().contentResolver.registerContentObserver(
-                    AlbumContract.LiveWallpaper.CONTENT_SELECT_PREVIEWING_URI,
-                    true, mContentObserver)
-            view.context().contentResolver.registerContentObserver(
-                    AlbumContract.LiveWallpaper.CONTENT_DOWNLOAD_ITEM_DELETED_URI,
-                    true, mDownloadItemDeletedObserver)
-        } else if (view.getWallpaperType() == WallpaperType.STYLE) {
-            view.context().contentResolver.registerContentObserver(
-                    AlbumContract.StyleWallpaper.CONTENT_SELECT_PREVIEWING_URI,
-                    true, mContentObserver)
-            view.context().contentResolver.registerContentObserver(
-                    AlbumContract.StyleWallpaper.CONTENT_DOWNLOAD_ITEM_DELETED_URI,
-                    true, mDownloadItemDeletedObserver)
-        } else {
-            view.context().contentResolver.registerContentObserver(
-                    AlbumContract.VideoWallpaper.CONTENT_SELECT_PREVIEWING_URI,
-                    true, mContentObserver)
-            view.context().contentResolver.registerContentObserver(
-                    AlbumContract.VideoWallpaper.CONTENT_DOWNLOAD_ITEM_DELETED_URI,
-                    true, mDownloadItemDeletedObserver)
+        when {
+            view.getWallpaperType() == WallpaperType.LIVE -> {
+                view.context().contentResolver.registerContentObserver(
+                        AlbumContract.LiveWallpaper.CONTENT_SELECT_PREVIEWING_URI,
+                        true, mContentObserver)
+                view.context().contentResolver.registerContentObserver(
+                        AlbumContract.LiveWallpaper.CONTENT_DOWNLOAD_ITEM_DELETED_URI,
+                        true, mDownloadItemDeletedObserver)
+            }
+            view.getWallpaperType() == WallpaperType.STYLE -> {
+                view.context().contentResolver.registerContentObserver(
+                        AlbumContract.StyleWallpaper.CONTENT_SELECT_PREVIEWING_URI,
+                        true, mContentObserver)
+                view.context().contentResolver.registerContentObserver(
+                        AlbumContract.StyleWallpaper.CONTENT_DOWNLOAD_ITEM_DELETED_URI,
+                        true, mDownloadItemDeletedObserver)
+            }
+            view.getWallpaperType() == WallpaperType.VIDEO -> {
+                view.context().contentResolver.registerContentObserver(
+                        AlbumContract.VideoWallpaper.CONTENT_SELECT_PREVIEWING_URI,
+                        true, mContentObserver)
+                view.context().contentResolver.registerContentObserver(
+                        AlbumContract.VideoWallpaper.CONTENT_DOWNLOAD_ITEM_DELETED_URI,
+                        true, mDownloadItemDeletedObserver)
+            }
+            else -> {
+                view.context().contentResolver.registerContentObserver(
+                        AlbumContract.HDWallpaper.CONTENT_SELECT_PREVIEWING_URI,
+                        true, mContentObserver)
+                view.context().contentResolver.registerContentObserver(
+                        AlbumContract.HDWallpaper.CONTENT_DOWNLOAD_ITEM_DELETED_URI,
+                        true, mDownloadItemDeletedObserver)
+            }
         }
 
     }
@@ -142,8 +158,8 @@ class WallpaperListPresenter
 
     fun previewWallpaper(item: WallpaperItem) {
         if (WallpaperFileHelper.isNeedDownloadWallpaper(item.lazyDownload,
-                item.storePath) || (downloadingWallpaper != null
-                && TextUtils.equals(downloadingWallpaper!!.wallpaperId, item.wallpaperId))) {
+                        item.storePath) || (downloadingWallpaper != null
+                        && TextUtils.equals(downloadingWallpaper!!.wallpaperId, item.wallpaperId))) {
             view?.showDownloadHintDialog(item)
         } else {
             previewWallpaper.execute(object : DefaultObserver<Boolean>() {
@@ -271,6 +287,7 @@ class WallpaperListPresenter
         }
 
         override fun onError(exception: Throwable?) {
+            view?.showEmpty()
         }
     }
 }

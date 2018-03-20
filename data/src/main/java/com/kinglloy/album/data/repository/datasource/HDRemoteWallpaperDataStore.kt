@@ -14,8 +14,8 @@ import com.kinglloy.album.data.exception.NetworkConnectionException
 import com.kinglloy.album.data.exception.NoContentException
 import com.kinglloy.album.data.exception.RemoteServerException
 import com.kinglloy.album.data.log.LogUtil
-import com.kinglloy.album.data.repository.datasource.io.StyleWallpaperHandler
-import com.kinglloy.album.data.repository.datasource.net.RemoteStyleWallpaperFetcher
+import com.kinglloy.album.data.repository.datasource.io.HDWallpaperHandler
+import com.kinglloy.album.data.repository.datasource.net.RemoteHDWallpaperFetcher
 import com.kinglloy.album.data.repository.datasource.provider.AlbumContract
 import com.kinglloy.album.data.repository.datasource.sync.SyncHelper
 import com.kinglloy.album.data.repository.datasource.sync.account.Account
@@ -24,20 +24,19 @@ import io.reactivex.Observable
 
 /**
  * @author jinyalin
- * @since 2017/10/31.
+ * @since 2018/3/20.
  */
-class StyleRemoteWallpaperDataStore(val context: Context,
-                                    private val localDataStoreStyle: StyleWallpaperDataStoreImpl)
+class HDRemoteWallpaperDataStore(val context: Context)
     : WallpaperDataStore {
 
     companion object {
-        const val TAG = "StyleRemoteWallpaperDataStore"
+        const val TAG = "HDRemoteWallpaperDataStore"
     }
 
-    private val wallpaperHandler = StyleWallpaperHandler(context, WallpaperEntityMapper())
+    private val wallpaperHandler = HDWallpaperHandler(context, WallpaperEntityMapper())
 
     override fun getPreviewWallpaperEntity(): WallpaperEntity {
-        throw UnsupportedOperationException("Remote style wallpaper data store not support get preview.")
+        throw UnsupportedOperationException("Remote HD wallpaper data store not support get preview.")
     }
 
     override fun getWallpaperEntities(): Observable<List<WallpaperEntity>> {
@@ -52,7 +51,7 @@ class StyleRemoteWallpaperDataStore(val context: Context,
 
             val batch = ArrayList<ContentProviderOperation>()
             try {
-                val wallpapers = RemoteStyleWallpaperFetcher(context).fetchDataIfNewer()
+                val wallpapers = RemoteHDWallpaperFetcher(context).fetchDataIfNewer()
                 val parser = JsonParser()
                 wallpaperHandler.process(parser.parse(wallpapers))
                 wallpaperHandler.makeContentProviderOperations(batch)
@@ -78,9 +77,9 @@ class StyleRemoteWallpaperDataStore(val context: Context,
             val validWallpapers = ArrayList<WallpaperEntity>()
             try {
                 val contentResolver = context.contentResolver
-                cursor = contentResolver.query(AlbumContract.StyleWallpaper.CONTENT_URI,
+                cursor = contentResolver.query(AlbumContract.HDWallpaper.CONTENT_URI,
                         null, null, null, null)
-                validWallpapers.addAll(WallpaperEntity.styleWallpaperValues(cursor))
+                validWallpapers.addAll(WallpaperEntity.hdWallpaperValues(cursor))
             } finally {
                 if (cursor != null) {
                     cursor.close()
@@ -97,27 +96,26 @@ class StyleRemoteWallpaperDataStore(val context: Context,
     }
 
     override fun getDownloadedWallpaperEntities(): Observable<List<WallpaperEntity>> {
-        throw UnsupportedOperationException("Remote style wallpaper data store not support get downloaded wallpaper.")
+        throw UnsupportedOperationException("Remote HD wallpaper data store not support get downloaded wallpaper.")
     }
 
     override fun deleteDownloadedWallpapers(wallpapers: List<WallpaperEntity>): Observable<Boolean> {
-        throw UnsupportedOperationException("Remote style data store not support delete downloaded wallpaper.")
+        throw UnsupportedOperationException("Remote HD data store not support delete downloaded wallpaper.")
     }
 
     override fun selectPreviewingWallpaper(): Observable<Boolean> {
-        throw UnsupportedOperationException("Remote style wallpaper data store not support select preview.")
+        throw UnsupportedOperationException("Remote HD wallpaper data store not support select preview.")
     }
 
     override fun previewWallpaper(wallpaperId: String, type: WallpaperType): Observable<Boolean> {
-        throw UnsupportedOperationException("Remote style wallpaper data store not support preview.")
+        throw UnsupportedOperationException("Remote HD wallpaper data store not support preview.")
     }
 
     override fun activeService(serviceType: Int): Observable<Boolean> {
-        throw UnsupportedOperationException("Remote style wallpaper data store not support active service.")
+        throw UnsupportedOperationException("Remote HD wallpaper data store not support active service.")
     }
 
     override fun getActiveService(): Observable<Int> {
-        throw UnsupportedOperationException("Remote style wallpaper data store not support get active service.")
+        throw UnsupportedOperationException("Remote HD wallpaper data store not support get active service.")
     }
-
 }
