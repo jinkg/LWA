@@ -42,7 +42,8 @@ public class WallpaperItem implements Parcelable {
             WallpaperItem item = (WallpaperItem) obj;
             return TextUtils.equals(item.wallpaperId, wallpaperId) &&
                     TextUtils.equals(item.storePath, storePath) &&
-                    TextUtils.equals(item.name, name);
+                    TextUtils.equals(item.name, name) &&
+                    TextUtils.equals(item.providerName, providerName);
         }
         return super.equals(obj);
     }
@@ -53,6 +54,9 @@ public class WallpaperItem implements Parcelable {
         result = 31 * result + wallpaperId.hashCode();
         result = 31 * result + storePath.hashCode();
         result = 31 * result + name.hashCode();
+        if (!TextUtils.isEmpty(providerName)) {
+            result = 31 * result + providerName.hashCode();
+        }
         return result;
     }
 

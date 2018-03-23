@@ -218,7 +218,8 @@ public class WallpaperEntity {
     public boolean equals(Object obj) {
         if (obj instanceof WallpaperEntity) {
             if (TextUtils.equals(((WallpaperEntity) obj).name, name)
-                    && TextUtils.equals(((WallpaperEntity) obj).checkSum, checkSum)) {
+                    && TextUtils.equals(((WallpaperEntity) obj).checkSum, checkSum)
+                    && TextUtils.equals(((WallpaperEntity) obj).providerName, providerName)) {
                 return true;
             }
         }
@@ -230,6 +231,9 @@ public class WallpaperEntity {
         int result = 0;
         result = 31 * result + name.hashCode();
         result = 31 * result + checkSum.hashCode();
+        if (!TextUtils.isEmpty(providerName)) {
+            result = 31 * result + providerName.hashCode();
+        }
         return result;
     }
 }

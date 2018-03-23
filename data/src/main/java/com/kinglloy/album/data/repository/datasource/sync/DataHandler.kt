@@ -28,7 +28,7 @@ class DataHandler(val context: Context) {
         private const val DATA_KEY_HD_WALLPAPER = "hd_wallpapers"
 
         private val DATA_KEYS_IN_ORDER = arrayOf(DATA_KEY_LIVE_WALLPAPER,
-                DATA_KEY_STYLE_WALLPAPER, DATA_KEY_VIDEO_WALLPAPER)
+                DATA_KEY_STYLE_WALLPAPER, DATA_KEY_VIDEO_WALLPAPER, DATA_KEY_HD_WALLPAPER)
 
     }
 
