@@ -30,13 +30,14 @@ import com.kinglloy.album.data.utils.WallpaperFileHelper
 import com.kinglloy.album.exception.ErrorMessageFactory
 import com.kinglloy.album.model.WallpaperItem
 import com.kinglloy.album.presenter.WallpaperListPresenter
+import com.kinglloy.album.util.PackageUtil
 import com.kinglloy.album.util.formatSizeToString
 import com.kinglloy.album.view.WallpaperListView
 import com.kinglloy.album.view.activity.ADActivity
 import com.kinglloy.album.view.activity.WallpaperListActivity
 import com.kinglloy.album.view.component.DownloadingDialog
 import kotlinx.android.synthetic.main.activity_wallpaper_list.*
-import java.util.ArrayList
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -318,9 +319,17 @@ abstract class BaseWallpapersFragment : Fragment(), WallpaperListView {
         dialogBuilder.build().show()
     }
 
+    private var adRandom: Random? = null
     private fun showAd(): Boolean {
-//        return !PackageUtil.isUltimate(activity!!)
-        return false
+        val ultimate = PackageUtil.isUltimate(activity!!)
+        if (ultimate) {
+            return false
+        }
+        if (adRandom == null) {
+            adRandom = Random()
+        }
+        val num = adRandom!!.nextInt(10) + 1
+        return num % 3 == 0
     }
 
 
@@ -370,8 +379,6 @@ abstract class BaseWallpapersFragment : Fragment(), WallpaperListView {
         var thumbnail: ImageView = thumbnailView as ImageView
         private var nameView: View = itemView.findViewById(R.id.tvName)
         var tvName: TextView = nameView as TextView
-
-        var icPro: View = itemView.findViewById(R.id.icon_pro)
     }
 
     private val wallpapersAdapter = object : RecyclerView.Adapter<AdvanceViewHolder>() {
@@ -402,7 +409,6 @@ abstract class BaseWallpapersFragment : Fragment(), WallpaperListView {
             holder.tvName.visibility =
                     if (item.pro || !TextUtils.isEmpty(item.name)) View.VISIBLE else View.GONE
             holder.tvName.background = if (item.pro) proBackground else normalBackground
-//            holder.icPro.visibility = if (item.pro) View.VISIBLE else View.GONE
             holder.tvName.text = item.name
         }
 

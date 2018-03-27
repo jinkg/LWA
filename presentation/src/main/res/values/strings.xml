@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Eight Tone Wallpaper</string>
+    <string name="app_name">The Wallpapers</string>
 
     <string name="app_author">Yalin</string>
     <string name="app_description">@string/app_name</string>
@@ -25,7 +25,7 @@
     <string name="delete">Delete</string>
     <string name="undo">Undo</string>
 
-    <string name="delete_count">%1$s downloaded wallpaper deleted.</string>
+    <string name="delete_count">%d downloaded wallpaper deleted.</string>
 
     <string name="not_show_today">Not show this today</string>
 
@@ -40,6 +40,8 @@
     <string name="hd_type_title">HD</string>
 
     <string name="string_cancel">Cancel</string>
+
+    <string name="string_ad_text">Ads by Google</string>
 
     <string name="drawer_item_video_wallpaper">Video Wallpaper</string>
     <string name="drawer_item_video_need_help">Need Help</string>
@@ -62,7 +64,7 @@
     <string name="drawer_item_my_wallpapers">My Wallpapers</string>
     <string name="drawer_item_my_wallpapers_dsc">Manage downloaded wallpapers</string>
     <string name="drawer_item_about">About</string>
-    <string name="drawer_item_about_dsc">About eight tone wallpaper(ETW)</string>
+    <string name="drawer_item_about_dsc">About The Wallpapers</string>
 
     <string name="exception_message_device_unsupported">Your device unsupported live wallpaper.</string>
     <string name="exception_message_generic">There was some error.</string>
@@ -88,21 +90,21 @@
     ]]></string>
 
     <string name="about_body"><![CDATA[
-        Eight Tone Wallpaper(ETW) contains many popular live wallpaper on the market.
+        The Wallpapers contains many popular live wallpaper on the market.
         Most of it downloaded over one million or even tens of millions in the Google Play store.
-        ETW brings them together and removes their ads and presents them in a refreshing way, greatly enhance the user experience.
-        At the same time, ETW has optimized many wallpapers to improve their performance and compatibility and reduce the power consumption of some live wallpapers.
+        This app brings them together and removes their ads and presents them in a refreshing way, greatly enhance the user experience.
+        At the same time, Wallpapers has optimized many wallpapers to improve their performance and compatibility and reduce the power consumption of some live wallpapers.
         <br><br>
 
-        In addition to live wallpaper, ETW also contains a variety of art paintings(Style wallpaper), and you can also use art to beautify your mobile phone desktop.
+        In addition to live wallpaper, The Wallpapers also contains a variety of art paintings(Style wallpaper), and you can also use art to beautify your mobile phone desktop.
         <br><br>
 
-        ETW provides a developer SDK to support interested wallpaper developers to develop live wallpaper.
-        ETW also open source for developers to learn to communicate.<br><br>
+        The Wallpapers provides a developer SDK to support interested wallpaper developers to develop live wallpaper.
+        The Wallpapers also open source for developers to learn to communicate.<br><br>
 
-        When new wallpapers are released, ETW will be updated within 24 hours.<br><br>
+        When new wallpapers are released, Wallpapers will be updated within 24 hours.<br><br>
 
-        If you have any comments or suggestions, or you need ETW\'s source code, please e-mail to the developer:
+        If you have any comments or suggestions, or you need Wallpaper\'s source code, please e-mail to the developer:
         <b><a href="mailto:jinkg@live.cn">jinkg@live.cn</a></b><br><br>
 
         <b><a href="http://www.kinglloy.com/">Visit home page</a></b>
@@ -143,8 +145,8 @@
     ]]></string>
 
     <string name="video_hint"><![CDATA[
-        Video wallpaper resources are generally arger(tens of MB), are on the server rental ETW。
-        ETW developed by individual developer, there is no source of income, and personal money is limited, so the bandwidth for renting a smaller server.<br><br>
+        Video wallpaper resources are generally arger(tens of MB), are on the server rental Wallpapers。
+        The Wallpapers developed by individual developer, there is no source of income, and personal money is limited, so the bandwidth for renting a smaller server.<br><br>
 
         If you like the wallpaper application and hope it will be more stable after the service, you can choose to donate for developer.<br><br>
 
@@ -157,10 +159,12 @@
     <string name="ad_retry">AD load failed press button to reload.</string>
 
     <string name="app_ad_id" translatable="false">ca-app-pub-8153753100171943~1504125034</string>
-    <string name="advance_banner_ad_unit_id" translatable="false">ca-app-pub-8153753100171943/6618696822</string>
-    <string name="advance_inter_ad_unit_id" translatable="false"> ca-app-pub-8153753100171943/6486178348</string>
+    <string name="advance_banner_ad_unit_id" translatable="false">ca-app-pub-8153753100171943/7356826360</string>
+    <string name="advance_inter_ad_unit_id" translatable="false">ca-app-pub-8153753100171943/6486178348</string>
     <string name="advance_video_ad_unit_id" translatable="false">ca-app-pub-8153753100171943/3858825636</string>
 
     <!--for test-->
+    <!--<string name="advance_banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>-->
+    <!--<string name="advance_inter_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/1033173712</string>-->
     <!--<string name="advance_video_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/5224354917</string>-->
 </resources>

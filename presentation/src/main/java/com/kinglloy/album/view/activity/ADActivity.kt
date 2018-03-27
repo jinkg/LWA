@@ -39,14 +39,12 @@ class ADActivity : AppCompatActivity() {
             onBackPressed()
         }
 
+        MobileAds.initialize(this, getString(R.string.app_ad_id))
         attachAD()
     }
 
 
     private fun attachAD() {
-        MobileAds.initialize(applicationContext,
-                getString(R.string.app_ad_id))
-
         content.visibility = View.GONE
         loading.visibility = View.VISIBLE
         retry.visibility = View.GONE
@@ -90,6 +88,10 @@ class ADActivity : AppCompatActivity() {
     private fun attachVideoAD() {
         mAd = MobileAds.getRewardedVideoAdInstance(this)
         mAd!!.rewardedVideoAdListener = object : RewardedVideoAdListener {
+            override fun onRewardedVideoCompleted() {
+
+            }
+
             override fun onRewardedVideoAdClosed() {
                 adClose()
 
@@ -125,13 +127,13 @@ class ADActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
-        mAd?.resume(this)
         super.onResume()
+        mAd?.resume(this)
     }
 
     override fun onPause() {
-        mAd?.pause(this)
         super.onPause()
+        mAd?.pause(this)
     }
 
     override fun onDestroy() {

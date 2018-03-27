@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">八音壁纸</string>
+    <string name="app_name">壁纸合集</string>
 
     <string name="app_author">Yalin</string>
     <string name="app_description">@string/app_name</string>
@@ -26,7 +26,7 @@
     <string name="delete">删除</string>
     <string name="undo">撤销</string>
 
-    <string name="delete_count">%1$s 个下载的壁纸被删除</string>
+    <string name="delete_count">%d 个下载的壁纸被删除</string>
 
     <string name="not_show_today">今天不再提示</string>
 
@@ -41,6 +41,8 @@
     <string name="hd_type_title">高清</string>
 
     <string name="string_cancel">取消</string>
+
+    <string name="string_ad_text">Google提供的广告</string>
 
     <string name="drawer_item_video_wallpaper">视频壁纸</string>
     <string name="drawer_item_video_need_help">需要帮助</string>
@@ -63,7 +65,7 @@
     <string name="drawer_item_my_wallpapers">我的壁纸</string>
     <string name="drawer_item_my_wallpapers_dsc">管理我下载的壁纸</string>
     <string name="drawer_item_about">关于</string>
-    <string name="drawer_item_about_dsc">关于八音壁纸（ETW）</string>
+    <string name="drawer_item_about_dsc">关于壁纸合集</string>
 
     <string name="exception_message_device_unsupported">您的设备不支持动态壁纸。</string>
     <string name="exception_message_generic">操作出现了一个错误。</string>
@@ -84,24 +86,24 @@
     <string name="about_version_template">V%1$s</string>
 
     <string name="donate_hint"><![CDATA[
-        如果你喜欢八音壁纸，并希望它以后有更稳定的服务，你可以选择为开发者捐赠。<br><br>
+        如果你喜欢壁纸合集，并希望它以后有更稳定的服务，你可以选择为开发者捐赠。<br><br>
 
         <b><a href="http://www.kinglloy.com/donate/">点此捐赠</a></b>
     ]]></string>
 
     <string name="about_body"><![CDATA[
-        八音壁纸（ETW）包含很多市场上火爆的动态壁纸，在谷歌应用市场上下载量超过百万甚至千万。
-        八音壁纸将它们整合在一起，并移除了它们各自的广告，以清爽的方式呈现给大家。很大程度上提升了用户体验。
-        同时八音壁纸对很多壁纸做了优化，提升了它们的性能和兼容性，并降低了一些动态壁纸的电量消耗。<br><br>
+        壁纸合集包含很多市场上火爆的动态壁纸，在谷歌应用市场上下载量超过百万甚至千万。
+        壁纸合集将它们整合在一起，并移除了它们各自的广告，以清爽的方式呈现给大家。很大程度上提升了用户体验。
+        同时壁纸合集对很多壁纸做了优化，提升了它们的性能和兼容性，并降低了一些动态壁纸的电量消耗。<br><br>
 
-        除动态壁纸外，八音壁纸也包含各种艺术画作（艺术壁纸），你也可以使用艺术作品来美化你的手机桌面。<br><br>
+        除动态壁纸外，壁纸合集也包含各种艺术画作（艺术壁纸），你也可以使用艺术作品来美化你的手机桌面。<br><br>
 
-        八音壁纸提供开发者SDK，支持有兴趣的壁纸开发者为八音壁纸开发动态壁纸。
-        八音壁纸开放源代码，供开发者学习交流。<br><br>
+        壁纸合集提供开发者SDK，支持有兴趣的壁纸开发者为壁纸合集开发动态壁纸。
+        壁纸合集开放源代码，供开发者学习交流。<br><br>
 
-        在有新壁纸发布时，八音壁纸会在24小时之内更新。<br><br>
+        在有新壁纸发布时，壁纸合集会在24小时之内更新。<br><br>
 
-        如果你有什么意见或建议，或者你需要八音壁纸的源代码，请发邮件给开发者邮箱：
+        如果你有什么意见或建议，或者你需要壁纸合集的源代码，请发邮件给开发者邮箱：
         <b><a href="mailto:jinkg@live.cn">jinkg@live.cn</a></b><br><br>
 
         你还可以<b><a href="http://www.kinglloy.com/">访问官方网站</a></b>
@@ -142,10 +144,10 @@
     ]]></string>
 
     <string name="video_hint"><![CDATA[
-        视频壁纸资源一般较大（数十MB），均放在八音壁纸租用的服务器上。
-        八音壁纸由个人开发者开发，没有收入来源，且个人金钱有限，因此租用的服务器带宽较小。<br><br>
+        视频壁纸资源一般较大（数十MB），均放在壁纸合集租用的服务器上。
+        壁纸合集由个人开发者开发，没有收入来源，且个人金钱有限，因此租用的服务器带宽较小。<br><br>
 
-        如果你喜欢八音壁纸，并希望它以后有更稳定的服务，你可以选择为开发者捐赠。<br><br>
+        如果你喜欢壁纸合集，并希望它以后有更稳定的服务，你可以选择为开发者捐赠。<br><br>
 
         <b><a href="http://www.kinglloy.com/donate/">点此捐赠</a></b>
     ]]></string>

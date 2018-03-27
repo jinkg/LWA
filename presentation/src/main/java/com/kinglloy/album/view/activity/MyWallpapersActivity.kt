@@ -360,8 +360,6 @@ class MyWallpapersActivity : AppCompatActivity(), MyWallpapersView {
         var thumbnail: ImageView = thumbnailView as ImageView
         private var nameView: View = itemView.findViewById(R.id.tvName)
         var tvName: TextView = nameView as TextView
-
-        var icPro: View = itemView.findViewById(R.id.icon_pro)
     }
 
     private var mLastTouchPosition: Int = 0
@@ -427,7 +425,6 @@ class MyWallpapersActivity : AppCompatActivity(), MyWallpapersView {
 
 
             holder.tvName.background = if (item.pro) proBackground else normalBackground
-            holder.icPro.visibility = if (item.pro) View.VISIBLE else View.GONE
             holder.tvName.text = item.name
         }
 

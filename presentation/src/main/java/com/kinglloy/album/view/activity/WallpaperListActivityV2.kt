@@ -15,6 +15,8 @@ import android.support.v7.widget.Toolbar
 import android.text.Html
 import android.view.View
 import com.afollestad.materialdialogs.MaterialDialog
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import com.kinglloy.album.AlbumApplication
 import com.kinglloy.album.R
 import com.kinglloy.album.analytics.Analytics
@@ -40,6 +42,7 @@ import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.ExpandableBadgeDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem
+import kotlinx.android.synthetic.main.activity_wallpaper_list2.*
 import javax.inject.Inject
 
 /**
@@ -276,7 +279,9 @@ class WallpaperListActivityV2 : AppCompatActivity(), SettingsView {
         if (PackageUtil.isUltimate(this)) {
             initDrawerUltimate(savedInstanceState)
         } else {
+            MobileAds.initialize(this, getString(R.string.app_ad_id))
             initDrawerWithAd(savedInstanceState)
+            initAdBanner()
         }
 
         val tabLayout = findViewById<TabLayout>(R.id.wallpaper_types_tab)
@@ -295,9 +300,20 @@ class WallpaperListActivityV2 : AppCompatActivity(), SettingsView {
     }
 
     override fun onDestroy() {
+        adView.pause()
         super.onDestroy()
         getSharedPreferences(SP_NAME, Context.MODE_PRIVATE).edit()
                 .putInt(SELECT_INDEX_KEY, viewPager.currentItem).apply()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        adView.resume()
+    }
+
+    override fun onPause() {
+        adView.pause()
+        super.onPause()
     }
 
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle?) {
@@ -349,6 +365,12 @@ class WallpaperListActivityV2 : AppCompatActivity(), SettingsView {
                 .build()
 
 
+    }
+
+    private fun initAdBanner(){
+        adGroup.visibility = View.VISIBLE
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
     }
 
     private fun initDrawerUltimate(savedInstanceState: Bundle?) {
