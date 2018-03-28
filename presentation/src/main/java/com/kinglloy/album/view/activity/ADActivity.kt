@@ -80,6 +80,7 @@ class ADActivity : AppCompatActivity() {
 
             override fun onAdLoaded() {
                 mInterstitialAd.show()
+                Analytics.logEvent(this@ADActivity, Event.INTER_AD_LOADED)
             }
         }
         mInterstitialAd.loadAd(AdRequest.Builder().build())
@@ -104,6 +105,7 @@ class ADActivity : AppCompatActivity() {
 
             override fun onRewardedVideoAdLoaded() {
                 mAd?.show()
+                Analytics.logEvent(this@ADActivity, Event.VIDEO_AD_LOADED)
             }
 
             override fun onRewardedVideoAdOpened() {
