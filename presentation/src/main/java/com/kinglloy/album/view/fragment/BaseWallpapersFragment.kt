@@ -22,6 +22,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.afollestad.materialdialogs.MaterialDialog
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.kinglloy.album.R
 import com.kinglloy.album.analytics.Analytics
 import com.kinglloy.album.analytics.Event
@@ -31,6 +32,7 @@ import com.kinglloy.album.exception.ErrorMessageFactory
 import com.kinglloy.album.model.WallpaperItem
 import com.kinglloy.album.presenter.WallpaperListPresenter
 import com.kinglloy.album.util.PackageUtil
+import com.kinglloy.album.util.UIUtils
 import com.kinglloy.album.util.formatSizeToString
 import com.kinglloy.album.view.WallpaperListView
 import com.kinglloy.album.view.activity.ADActivity
@@ -156,12 +158,9 @@ abstract class BaseWallpapersFragment : Fragment(), WallpaperListView {
                             }
                         }
 
-                        val spacing = resources.getDimensionPixelSize(
-                                R.dimen.gallery_chosen_photo_grid_spacing)
-                        mItemSize = (width - spacing * (numColumns - 1)) / numColumns
-
                         // Complete setup
                         gridLayoutManager.spanCount = numColumns
+                        mItemSize = UIUtils.getGridSize(activity!!, numColumns)
                         wallpaperList.adapter = wallpapersAdapter
 
                         wallpaperList.viewTreeObserver.removeOnGlobalLayoutListener(this)
@@ -388,6 +387,7 @@ abstract class BaseWallpapersFragment : Fragment(), WallpaperListView {
             holder.thumbnail.layoutParams.height = mItemSize
             Glide.with(activity)
                     .load(item.iconUrl)
+                    .diskCacheStrategy(DiskCacheStrategy.RESULT)
                     .override(mItemSize, mItemSize)
                     .placeholder(placeHolderDrawable)
                     .into(holder.thumbnail)

@@ -354,7 +354,7 @@ class WallpaperListActivityV2 : AppCompatActivity(), SettingsView {
                                         .withOnDrawerItemClickListener(drawerItemClick)
                         ),
                         DividerDrawerItem(),
-                        makeMeBetterAD,
+                        makeMeBetter,
                         getPro,
                         DividerDrawerItem(),
                         myWallpapers,

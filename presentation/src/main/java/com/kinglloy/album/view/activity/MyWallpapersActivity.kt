@@ -20,11 +20,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.kinglloy.album.AlbumApplication
 import com.kinglloy.album.R
 import com.kinglloy.album.model.WallpaperItem
 import com.kinglloy.album.presenter.MyWallpapersPresenter
 import com.kinglloy.album.util.MultiSelectionController
+import com.kinglloy.album.util.UIUtils
 import com.kinglloy.album.view.MyWallpapersView
 import kotlinx.android.synthetic.main.activity_my_wallpapers.*
 import java.util.*
@@ -36,9 +38,9 @@ import javax.inject.Inject
  */
 class MyWallpapersActivity : AppCompatActivity(), MyWallpapersView {
     companion object {
-        private val STATE_SELECTION = "selection"
+        private const val STATE_SELECTION = "selection"
 
-        private val SELECTION_MODE = "selection_mode"
+        private const val SELECTION_MODE = "selection_mode"
     }
 
     private lateinit var wallpaperList: RecyclerView
@@ -49,7 +51,7 @@ class MyWallpapersActivity : AppCompatActivity(), MyWallpapersView {
     private lateinit var normalBackground: Drawable
 
     @Inject
-    lateinit internal var presenter: MyWallpapersPresenter
+    internal lateinit var presenter: MyWallpapersPresenter
 
     private var placeHolderDrawable: ColorDrawable? = null
     private var mItemSize = 10
@@ -134,12 +136,9 @@ class MyWallpapersActivity : AppCompatActivity(), MyWallpapersView {
                             }
                         }
 
-                        val spacing = resources.getDimensionPixelSize(
-                                R.dimen.gallery_chosen_photo_grid_spacing)
-                        mItemSize = (width - spacing * (numColumns - 1)) / numColumns
-
                         // Complete setup
                         gridLayoutManager.spanCount = numColumns
+                        mItemSize = UIUtils.getGridSize(this@MyWallpapersActivity, numColumns)
                         wallpaperList.adapter = wallpapersAdapter
 
                         wallpaperList.viewTreeObserver.removeOnGlobalLayoutListener(this)
@@ -374,6 +373,7 @@ class MyWallpapersActivity : AppCompatActivity(), MyWallpapersView {
             holder.thumbnail.layoutParams.height = mItemSize
             Glide.with(this@MyWallpapersActivity)
                     .load(item.iconUrl)
+                    .diskCacheStrategy(DiskCacheStrategy.RESULT)
                     .override(mItemSize, mItemSize)
                     .placeholder(placeHolderDrawable)
                     .into(holder.thumbnail)
@@ -423,7 +423,8 @@ class MyWallpapersActivity : AppCompatActivity(), MyWallpapersView {
                 holder.checkOverlayView.visibility = if (checked) View.VISIBLE else View.GONE
             }
 
-
+            holder.tvName.visibility =
+                    if (item.pro || !TextUtils.isEmpty(item.name)) View.VISIBLE else View.GONE
             holder.tvName.background = if (item.pro) proBackground else normalBackground
             holder.tvName.text = item.name
         }
