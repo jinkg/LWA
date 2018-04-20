@@ -52,10 +52,6 @@
             android:theme="@style/Theme.About" />
 
         <activity
-            android:name=".view.activity.PayActivity"
-            android:theme="@style/Theme.Pay" />
-
-        <activity
             android:name=".view.activity.MyWallpapersActivity"
             android:theme="@style/Theme.MyWallpapers" />
 
