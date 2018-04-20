@@ -239,6 +239,12 @@ class WallpaperListActivityV2 : AppCompatActivity(), SettingsView {
                     .withSelectable(false)
                     .withIdentifier(ID_DONATE)
                     .withLevel(2)
+                    .withOnDrawerItemClickListener(drawerItemClick),
+            SecondaryDrawerItem().withName(R.string.drawer_item_rate)
+                    .withDescription(R.string.drawer_item_rate_dsc)
+                    .withSelectable(false)
+                    .withIdentifier(ID_RATE)
+                    .withLevel(2)
                     .withOnDrawerItemClickListener(drawerItemClick))
 
     private val makeMeBetter = ExpandableBadgeDrawerItem().withName(R.string.drawer_item_make_me_better)
@@ -250,6 +256,12 @@ class WallpaperListActivityV2 : AppCompatActivity(), SettingsView {
                     .withDescription(R.string.drawer_item_see_ad_dsc)
                     .withSelectable(false)
                     .withIdentifier(ID_SEE_AD)
+                    .withLevel(2)
+                    .withOnDrawerItemClickListener(drawerItemClick),
+            SecondaryDrawerItem().withName(R.string.drawer_item_rate)
+                    .withDescription(R.string.drawer_item_rate_dsc)
+                    .withSelectable(false)
+                    .withIdentifier(ID_RATE)
                     .withLevel(2)
                     .withOnDrawerItemClickListener(drawerItemClick))
 
@@ -266,6 +278,15 @@ class WallpaperListActivityV2 : AppCompatActivity(), SettingsView {
             .withDescription(R.string.drawer_item_my_wallpapers_dsc)
             .withIcon(R.drawable.ic_drawer_my_wallpapers)
             .withIdentifier(ID_MY_WALLPAPERS)
+            .withSelectable(false)
+            .withIconTintingEnabled(true)
+            .withIconColorRes(R.color.colorPrimary)
+            .withOnDrawerItemClickListener(drawerItemClick)
+
+    private val rate = PrimaryDrawerItem().withName(R.string.drawer_item_rate)
+            .withDescription(R.string.drawer_item_rate_dsc)
+            .withIcon(R.drawable.ic_drawer_rate)
+            .withIdentifier(ID_RATE)
             .withSelectable(false)
             .withIconTintingEnabled(true)
             .withIconColorRes(R.color.colorPrimary)
@@ -371,6 +392,8 @@ class WallpaperListActivityV2 : AppCompatActivity(), SettingsView {
                         DividerDrawerItem(),
                         myWallpapers,
                         DividerDrawerItem(),
+                        rate,
+                        DividerDrawerItem(),
                         aboutDrawer)
                 .withSavedInstance(savedInstanceState)
                 .withShowDrawerOnFirstLaunch(true)
@@ -400,6 +423,8 @@ class WallpaperListActivityV2 : AppCompatActivity(), SettingsView {
                         makeMeBetter,
                         DividerDrawerItem(),
                         myWallpapers,
+                        DividerDrawerItem(),
+                        rate,
                         DividerDrawerItem(),
                         aboutDrawer)
                 .withSavedInstance(savedInstanceState)
