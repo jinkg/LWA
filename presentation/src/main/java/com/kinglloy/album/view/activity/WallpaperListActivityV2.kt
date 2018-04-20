@@ -78,6 +78,8 @@ class WallpaperListActivityV2 : AppCompatActivity(), SettingsView {
         const val ID_MY_WALLPAPERS = 5000L
 
         const val ID_GET_PRO = 6000L
+
+        const val ID_RATE = 7000L
     }
 
     @Inject
@@ -128,6 +130,16 @@ class WallpaperListActivityV2 : AppCompatActivity(), SettingsView {
                         .positiveText(R.string.confirm)
 
                 dialogBuilder.build().show()
+            }
+            ID_RATE -> {
+                val appPackageName = "com.kinglloy.album"
+                try {
+                    startActivity(Intent(Intent.ACTION_VIEW,
+                            Uri.parse("market://details?id=" + appPackageName)))
+                } catch (anfe: android.content.ActivityNotFoundException) {
+                    startActivity(Intent(Intent.ACTION_VIEW,
+                            Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)))
+                }
             }
             ID_VIDEO_PROBLEM -> {
                 val dialogBuilder = MaterialDialog.Builder(this)
@@ -367,7 +379,7 @@ class WallpaperListActivityV2 : AppCompatActivity(), SettingsView {
 
     }
 
-    private fun initAdBanner(){
+    private fun initAdBanner() {
         adGroup.visibility = View.VISIBLE
         val adRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)

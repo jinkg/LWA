@@ -13,6 +13,10 @@
 
     <style name="Theme.WallpaperList" parent="Theme.Album.Base" />
 
+    <style name="Theme.Launcher" parent="Theme.Album.Base">
+        <item name="android:windowBackground">@drawable/window_background</item>
+    </style>
+
     <style name="Theme.MainActivity" parent="Theme.Album.Base">
         <item name="android:textColorSecondary">@color/colorPrimary</item>
     </style>

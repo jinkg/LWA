@@ -29,9 +29,8 @@
         android:roundIcon="@drawable/ic_launcher"
         android:supportsRtl="true">
 
-        <activity
-            android:name=".view.activity.WallpaperListActivityV2"
-            android:theme="@style/Theme.WallpaperList" />
+        <activity android:name=".view.activity.WallpaperListActivityV2" />
+
         <activity
             android:name=".view.activity.MainActivity"
             android:theme="@style/Theme.MainActivity" />

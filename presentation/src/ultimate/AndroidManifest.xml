@@ -5,8 +5,8 @@
     <application>
 
         <activity
-          android:name=".view.activity.WallpaperListActivityV2"
-          android:theme="@style/Theme.WallpaperList">
+            android:name=".view.activity.WallpaperListActivityV2"
+            android:theme="@style/Theme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

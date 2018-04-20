@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
@@ -54,6 +55,10 @@ abstract class BaseWallpapersFragment : Fragment(), WallpaperListView {
         const val LOAD_STATE_NORMAL = 0
         const val LOAD_STATE_LOADING = 1
         const val LOAD_STATE_RETRY = 2
+
+        const val PROMOTE_NONE = 0
+        const val PROMOTE_AD = 1
+        const val PROMOTE_RATE = 2
     }
 
     private lateinit var wallpaperList: RecyclerView
@@ -279,16 +284,28 @@ abstract class BaseWallpapersFragment : Fragment(), WallpaperListView {
     }
 
     override fun showDownloadHintDialog(item: WallpaperItem) {
-        val showAd = showAd()
+        val promote = showPromote()
+        if (promote == PROMOTE_AD || promote == PROMOTE_NONE) {
+            showDownload(item, promote == PROMOTE_AD)
+        } else {
+            showDownloadWithRate(item)
+        }
+    }
+
+    private fun showDownload(item: WallpaperItem, showAd: Boolean) {
         val downloadCallback =
                 MaterialDialog.SingleButtonCallback { _, _ ->
                     presenter.requestDownload(item)
-                    Analytics.logEvent(activity!!,
-                            Event.DOWNLOAD_COMPONENT, item.name)
+
                     if (showAd) {
+                        Analytics.logEvent(activity!!,
+                                Event.DOWNLOAD_AD_COMPONENT, item.name)
                         Analytics.logEvent(activity!!, Event.OPEN_AD_ACTIVITY)
                         startActivity(Intent(activity,
                                 ADActivity::class.java))
+                    } else {
+                        Analytics.logEvent(activity!!,
+                                Event.DOWNLOAD_COMPONENT, item.name)
                     }
                 }
         val content =
@@ -318,17 +335,51 @@ abstract class BaseWallpapersFragment : Fragment(), WallpaperListView {
         dialogBuilder.build().show()
     }
 
+    private fun showDownloadWithRate(item: WallpaperItem) {
+        val downloadRateCallback =
+                MaterialDialog.SingleButtonCallback { _, _ ->
+                    presenter.requestDownload(item)
+                    Analytics.logEvent(activity!!,
+                            Event.DOWNLOAD_RATE_COMPONENT, item.name)
+                    toRate()
+                }
+
+        val downloadCallback =
+                MaterialDialog.SingleButtonCallback { _, _ ->
+                    presenter.requestDownload(item)
+                    Analytics.logEvent(activity!!,
+                            Event.DOWNLOAD_COMPONENT, item.name)
+                }
+        val content =
+                if (item.size > 0) {
+                    Html.fromHtml(getString(R.string.advance_download_size_hint_rate,
+                            formatSizeToString(item.size)))
+                } else {
+                    Html.fromHtml(getString(R.string.advance_download_hint_rate))
+                }
+
+        val dialogBuilder = MaterialDialog.Builder(activity!!)
+                .iconRes(R.drawable.advance_wallpaper_msg)
+                .title(R.string.hint)
+                .content(content)
+                .positiveText(R.string.advance_rate_download_msg)
+                .onPositive(downloadRateCallback)
+                .negativeText(R.string.advance_no_rate_download_msg)
+                .onNegative(downloadCallback)
+        dialogBuilder.build().show()
+    }
+
     private var adRandom: Random? = null
-    private fun showAd(): Boolean {
+    private fun showPromote(): Int {
         val ultimate = PackageUtil.isUltimate(activity!!)
         if (ultimate) {
-            return false
+            return PROMOTE_NONE
         }
         if (adRandom == null) {
             adRandom = Random()
         }
         val num = adRandom!!.nextInt(10) + 1
-        return num % 3 == 0
+        return num % 3
     }
 
 
@@ -430,4 +481,14 @@ abstract class BaseWallpapersFragment : Fragment(), WallpaperListView {
         override fun getItemId(position: Int): Long = wallpapers[position].id
     }
 
+    private fun toRate() {
+        val appPackageName = "com.kinglloy.album"
+        try {
+            startActivity(Intent(Intent.ACTION_VIEW,
+                    Uri.parse("market://details?id=" + appPackageName)))
+        } catch (anfe: android.content.ActivityNotFoundException) {
+            startActivity(Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)))
+        }
+    }
 }

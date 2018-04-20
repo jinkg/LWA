@@ -15,6 +15,8 @@
     <string name="advance_action_msg">Hint</string>
 
     <string name="advance_download_msg">Download</string>
+    <string name="advance_rate_download_msg">Rate and Download</string>
+    <string name="advance_no_rate_download_msg">Not Now</string>
     <string name="advance_ad_download_msg">Show Ad and download</string>
 
     <string name="done">Done</string>
@@ -55,12 +57,14 @@
     <string name="drawer_item_style_dim">Dim</string>
     <string name="drawer_item_style_grey">Grey</string>
     <string name="drawer_item_make_me_better">Make Me Better</string>
-    <string name="drawer_item_see_ad">See AD.(Make sure click the AD.)</string>
+    <string name="drawer_item_see_ad">See AD(Make sure click the AD.)</string>
     <string name="drawer_item_see_ad_dsc">Help us earn some tips.</string>
-    <string name="drawer_item_remove_ad">Get Pro Version.</string>
-    <string name="drawer_item_remove_ad_dsc">Get more wallpapers and supports.</string>
+    <string name="drawer_item_remove_ad">Get Pro Version</string>
+    <string name="drawer_item_remove_ad_dsc">AD Free. More wallpapers and supports.</string>
     <string name="drawer_item_donate">Donate</string>
     <string name="drawer_item_donate_dsc">Give us some money.</string>
+    <string name="drawer_item_rate">Rate</string>
+    <string name="drawer_item_rate_dsc">Rate The Wallpapers on Google play. Help more people find it!</string>
     <string name="drawer_item_my_wallpapers">My Wallpapers</string>
     <string name="drawer_item_my_wallpapers_dsc">Manage downloaded wallpapers</string>
     <string name="drawer_item_about">About</string>
@@ -142,6 +146,18 @@
         At the same time, This wallpaper contain a little ad, you must view a minute ad before use it.<br><br>
         Thank you for your support for the developer.<br><br>
         Press download button if you are ready to download and see ad.
+    ]]></string>
+
+    <string name="advance_download_hint_rate"><![CDATA[
+        You must take a minute to download this wallpaper(several hundred KB or several MB).<br><br>
+        You can rate The Wallpapers on Google play. Help more people find it!<br><br>
+        Thank you for your support for the developer.<br><br>
+    ]]></string>
+
+    <string name="advance_download_size_hint_rate"><![CDATA[
+        The total size of this wallpaper is %s, You must take a minute to download it.<br><br>
+        You can rate The Wallpapers on Google play. Help more people find it!<br><br>
+        Thank you for your support for the developer.<br><br>
     ]]></string>
 
     <string name="video_hint"><![CDATA[
