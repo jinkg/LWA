@@ -106,7 +106,11 @@ abstract class BaseWallpapersFragment : Fragment(), WallpaperListView {
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putInt(LOAD_STATE, loadState)
-        presenter.onSaveInstanceState(outState)
+        try {
+            presenter.onSaveInstanceState(outState)
+        } catch (e: Throwable) {
+            // ignore
+        }
         super.onSaveInstanceState(outState)
     }
 
