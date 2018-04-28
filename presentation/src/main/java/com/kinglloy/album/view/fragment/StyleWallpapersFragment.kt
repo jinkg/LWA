@@ -1,5 +1,6 @@
 package com.kinglloy.album.view.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -15,13 +16,18 @@ import com.kinglloy.album.view.activity.WallpaperListActivity
  * @since 2017/10/31.
  */
 class StyleWallpapersFragment : BaseWallpapersFragment() {
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        AlbumApplication.instance.applicationComponent.inject(this)
+    }
+
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View
             = inflater.inflate(R.layout.fragment_style_wallpapers_list, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        AlbumApplication.instance.applicationComponent.inject(this)
         super.onViewCreated(view, savedInstanceState)
 
         presenter.setView(this)
