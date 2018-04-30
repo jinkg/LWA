@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
-        <shape android:shape="rectangle">
-            <solid android:color="#eeeeee" />
-        </shape>
-    </item>
-    <item
-        android:drawable="@drawable/window_background_icon"
-        android:gravity="center" />
+  <item>
+    <shape android:shape="rectangle">
+      <solid android:color="#eeeeee" />
+    </shape>
+  </item>
+
+  <item>
+    <bitmap
+      android:gravity="center_horizontal|center_vertical"
+      android:src="@drawable/window_background_icon" />
+  </item>
 
 </layer-list>
