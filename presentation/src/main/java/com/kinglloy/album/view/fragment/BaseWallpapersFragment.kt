@@ -383,7 +383,7 @@ abstract class BaseWallpapersFragment : Fragment(), WallpaperListView {
             adRandom = Random()
         }
         val num = adRandom!!.nextInt(10) + 1
-        return num % 3
+        return num % 2 + 1
     }
 
 

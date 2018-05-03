@@ -49,12 +49,14 @@ class ADActivity : AppCompatActivity() {
         loading.visibility = View.VISIBLE
         retry.visibility = View.GONE
 
-        val code = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this)
-        if (code == ConnectionResult.SUCCESS) {
-            attachVideoAD()
-        } else {
-            attachInterstitialAd()
-        }
+//        val code = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this)
+//        if (code == ConnectionResult.SUCCESS) {
+//            attachVideoAD()
+//        } else {
+//            attachInterstitialAd()
+//        }
+
+        attachInterstitialAd()
     }
 
     private fun attachInterstitialAd() {

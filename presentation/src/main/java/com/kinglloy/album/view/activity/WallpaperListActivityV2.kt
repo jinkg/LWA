@@ -31,10 +31,7 @@ import com.kinglloy.album.view.SettingsView
 import com.kinglloy.album.view.component.MySecondarySwitchDrawerItem
 import com.kinglloy.album.view.component.OnProgressChangedListener
 import com.kinglloy.album.view.component.SecondarySeekDrawerItem
-import com.kinglloy.album.view.fragment.HDWallpapersFragment
-import com.kinglloy.album.view.fragment.LiveWallpapersFragment
-import com.kinglloy.album.view.fragment.StyleWallpapersFragment
-import com.kinglloy.album.view.fragment.VideoWallpapersFragment
+import com.kinglloy.album.view.fragment.*
 import com.mikepenz.materialdrawer.Drawer
 import com.mikepenz.materialdrawer.DrawerBuilder
 import com.mikepenz.materialdrawer.interfaces.OnCheckedChangeListener
@@ -43,6 +40,7 @@ import com.mikepenz.materialdrawer.model.ExpandableBadgeDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem
 import kotlinx.android.synthetic.main.activity_wallpaper_list2.*
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -88,6 +86,7 @@ class WallpaperListActivityV2 : AppCompatActivity(), SettingsView {
     private lateinit var viewPager: ViewPager
     private lateinit var drawer: Drawer
 
+    private var adRandom: Random? = null
 
     private val onCheckedChangeListener = OnCheckedChangeListener { _, _, isChecked ->
         presenter.enableStyleEffect(isChecked)
@@ -330,6 +329,8 @@ class WallpaperListActivityV2 : AppCompatActivity(), SettingsView {
         }
 
         presenter.initialize()
+
+        maybeOpenAdActivity()
     }
 
     override fun onDestroy() {
@@ -360,6 +361,21 @@ class WallpaperListActivityV2 : AppCompatActivity(), SettingsView {
             drawer.closeDrawer()
         } else {
             super.onBackPressed()
+        }
+    }
+
+    private fun maybeOpenAdActivity() {
+        val ultimate = PackageUtil.isUltimate(this)
+        if (ultimate) {
+            return
+        }
+        if (adRandom == null) {
+            adRandom = Random()
+        }
+        val num = adRandom!!.nextInt(10) + 1
+        if (num % 2 == 0) {
+            startActivity(Intent(this,
+                    ADActivity::class.java))
         }
     }
 
