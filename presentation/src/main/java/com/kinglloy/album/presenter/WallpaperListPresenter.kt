@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
 import com.kinglloy.album.WallpaperSwitcher
+import com.kinglloy.album.analytics.Analytics
+import com.kinglloy.album.analytics.Event.DOWNLOAD_WALLPAPER
 import com.kinglloy.album.data.exception.NetworkConnectionException
 import com.kinglloy.album.data.log.LogUtil
 import com.kinglloy.album.data.repository.datasource.provider.AlbumContract
@@ -172,6 +174,8 @@ class WallpaperListPresenter
     }
 
     fun requestDownload(item: WallpaperItem) {
+        Analytics.logEvent(view!!.context(), DOWNLOAD_WALLPAPER,
+                item.wallpaperType.name, item.name, item.providerName)
         view?.showDownloadingDialog(item)
         downloadingWallpaper = item
         downloadState = DOWNLOADING
@@ -228,10 +232,12 @@ class WallpaperListPresenter
     }
 
     override fun destroy() {
-        KinglloyDownloader.getInstance(view!!.context())
-                .unregisterListener(currentDownloadId, this)
-        view!!.context().contentResolver.unregisterContentObserver(mContentObserver)
-        view!!.context().contentResolver.unregisterContentObserver(mDownloadItemDeletedObserver)
+        if (view != null) {
+            KinglloyDownloader.getInstance(view!!.context())
+                    .unregisterListener(currentDownloadId, this)
+        }
+        view?.context()?.contentResolver?.unregisterContentObserver(mContentObserver)
+        view?.context()?.contentResolver?.unregisterContentObserver(mDownloadItemDeletedObserver)
         getWallpapers.dispose()
         loadWallpaper.dispose()
         downloadingWallpaper = null

@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">The Wallpapers</string>
+    <string name="app_name">Wallpapers</string>
 
     <string name="app_author">Yalin</string>
     <string name="app_description">@string/app_name</string>
 
-    <string name="advance_empty_load">Load videoWallpapers</string>
+    <string name="advance_empty_load">Load Wallpapers</string>
     <string name="advance_empty_description">There has no wallpaper loaded.\nYou can load the wallpapers from server.</string>
     <string name="downloaded_empty_description">You have not download any wallpaper.\nYou can download the wallpapers from home page.</string>
 
@@ -64,11 +64,11 @@
     <string name="drawer_item_donate">Donate</string>
     <string name="drawer_item_donate_dsc">Give us some money.</string>
     <string name="drawer_item_rate">Rate</string>
-    <string name="drawer_item_rate_dsc">Rate The Wallpapers on Google play. Help more people find it!</string>
+    <string name="drawer_item_rate_dsc">Rate "Wallpapers" on Google play. Help more people find it!</string>
     <string name="drawer_item_my_wallpapers">My Wallpapers</string>
     <string name="drawer_item_my_wallpapers_dsc">Manage downloaded wallpapers</string>
     <string name="drawer_item_about">About</string>
-    <string name="drawer_item_about_dsc">About The Wallpapers</string>
+    <string name="drawer_item_about_dsc">About "Wallpapers"</string>
 
     <string name="exception_message_device_unsupported">Your device unsupported live wallpaper.</string>
     <string name="exception_message_generic">There was some error.</string>
@@ -77,7 +77,7 @@
     <string name="exception_message_remote_service">Remote service not available</string>
     <string name="exception_message_download">Download error</string>
 
-    <string name="app_context_description">A album with a lot of living videoWallpapers.</string>
+    <string name="app_context_description">A album with a lot of living wallpapers.</string>
     <string name="app_context_uri">http://www.kinglloy.com/</string>
 
     <string name="string_donate">Donate</string>
@@ -94,19 +94,19 @@
     ]]></string>
 
     <string name="about_body"><![CDATA[
-        The Wallpapers contains many popular live wallpaper on the market.
+        "Wallpapers" contains many popular live wallpaper on the market.
         Most of it downloaded over one million or even tens of millions in the Google Play store.
         This app brings them together and removes their ads and presents them in a refreshing way, greatly enhance the user experience.
-        At the same time, Wallpapers has optimized many wallpapers to improve their performance and compatibility and reduce the power consumption of some live wallpapers.
+        At the same time, "Wallpapers" has optimized many wallpapers to improve their performance and compatibility and reduce the power consumption of some live wallpapers.
         <br><br>
 
-        In addition to live wallpaper, The Wallpapers also contains a variety of art paintings(Style wallpaper), and you can also use art to beautify your mobile phone desktop.
+        In addition to live wallpaper, "Wallpapers" also contains a variety of art paintings(Style wallpaper), and you can also use art to beautify your mobile phone desktop.
         <br><br>
 
-        The Wallpapers provides a developer SDK to support interested wallpaper developers to develop live wallpaper.
-        The Wallpapers also open source for developers to learn to communicate.<br><br>
+        "Wallpapers" provides a developer SDK to support interested wallpaper developers to develop live wallpaper.
+        "Wallpapers" also open source for developers to learn to communicate.<br><br>
 
-        When new wallpapers are released, Wallpapers will be updated within 24 hours.<br><br>
+        When new wallpapers are released, "Wallpapers" will be updated within 24 hours.<br><br>
 
         If you have any comments or suggestions, or you need Wallpaper\'s source code, please e-mail to the developer:
         <b><a href="mailto:jinkg@live.cn">jinkg@live.cn</a></b><br><br>
@@ -150,19 +150,19 @@
 
     <string name="advance_download_hint_rate"><![CDATA[
         You must take a minute to download this wallpaper(several hundred KB or several MB).<br><br>
-        You can rate The Wallpapers on Google play. Help more people find it!<br><br>
+        You can rate "Wallpapers" on Google play. Help more people find it!<br><br>
         Thank you for your support for the developer.<br><br>
     ]]></string>
 
     <string name="advance_download_size_hint_rate"><![CDATA[
         The total size of this wallpaper is %s, You must take a minute to download it.<br><br>
-        You can rate The Wallpapers on Google play. Help more people find it!<br><br>
+        You can rate "Wallpapers" on Google play. Help more people find it!<br><br>
         Thank you for your support for the developer.<br><br>
     ]]></string>
 
     <string name="video_hint"><![CDATA[
-        Video wallpaper resources are generally arger(tens of MB), are on the server rental Wallpapers。
-        The Wallpapers developed by individual developer, there is no source of income, and personal money is limited, so the bandwidth for renting a smaller server.<br><br>
+        Video wallpaper resources are generally larger(tens of MB)。
+        "Wallpapers" developed by individual developer, there is no source of income, and personal money is limited, so the bandwidth for renting a smaller server.<br><br>
 
         If you like the wallpaper application and hope it will be more stable after the service, you can choose to donate for developer.<br><br>
 

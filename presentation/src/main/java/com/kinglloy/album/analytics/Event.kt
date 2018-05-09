@@ -17,6 +17,7 @@ object Event {
     const val DOWNLOAD_COMPONENT = "download_component"
     const val DOWNLOAD_AD_COMPONENT = "download_ad_component"
     const val DOWNLOAD_RATE_COMPONENT = "download_rate_component"
+    const val DOWNLOAD_WALLPAPER = "download_wallpaper"
 
     const val OPEN_AD_ACTIVITY = "open_ad_activity"
     const val TODAY_NOT_SHOW = "today_not_show"
