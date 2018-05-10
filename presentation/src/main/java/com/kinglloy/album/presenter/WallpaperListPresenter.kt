@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
 import com.kinglloy.album.WallpaperSwitcher
+import com.kinglloy.album.analytics.Analytics
+import com.kinglloy.album.analytics.Event
 import com.kinglloy.album.data.exception.NetworkConnectionException
 import com.kinglloy.album.data.log.LogUtil
 import com.kinglloy.album.data.repository.datasource.provider.AlbumContract
@@ -172,26 +174,35 @@ class WallpaperListPresenter
     }
 
     fun requestDownload(item: WallpaperItem) {
-        view?.showDownloadingDialog(item)
-        downloadingWallpaper = item
-        downloadState = DOWNLOADING
-        val downloader = KinglloyDownloader.getInstance(view!!.context())
-        val downloadRequest = KinglloyDownloader.Request(item.downloadUrl)
-                .setDestinationPath(item.storePath)
-        val downloadId = downloader.queryId(downloadRequest)
-        if (downloader.getState(downloadId) == DownloadState.STATE_DOWNLOADING) {
-            currentDownloadId = downloadId
-        } else {
-            if (downloadId != -1L) {
-                currentDownloadId = downloadId
-                downloader.start(currentDownloadId)
-            } else {
-                currentDownloadId = KinglloyDownloader.getInstance(view!!.context())
-                        .enqueue(downloadRequest)
-            }
-        }
+        view?.apply {
+            val bundle = Bundle()
+            bundle.putString(Event.WallpaperItem.ITEM_NAME, item.name)
+            bundle.putString(Event.WallpaperItem.ITEM_TYPE, item.wallpaperType.name)
+            bundle.putString(Event.WallpaperItem.ITEM_PROVIDER_NAME, item.providerName)
+            Analytics.logEvent(context(), Event.DOWNLOAD_WALLPAPER, bundle)
 
-        KinglloyDownloader.getInstance(view!!.context()).registerListener(currentDownloadId, this)
+            showDownloadingDialog(item)
+            downloadingWallpaper = item
+            downloadState = DOWNLOADING
+            val downloader = KinglloyDownloader.getInstance(context())
+            val downloadRequest = KinglloyDownloader.Request(item.downloadUrl)
+                    .setDestinationPath(item.storePath)
+            val downloadId = downloader.queryId(downloadRequest)
+            if (downloader.getState(downloadId) == DownloadState.STATE_DOWNLOADING) {
+                currentDownloadId = downloadId
+            } else {
+                if (downloadId != -1L) {
+                    currentDownloadId = downloadId
+                    downloader.start(currentDownloadId)
+                } else {
+                    currentDownloadId = KinglloyDownloader.getInstance(context())
+                            .enqueue(downloadRequest)
+                }
+            }
+
+            KinglloyDownloader.getInstance(context())
+                    .registerListener(currentDownloadId, this@WallpaperListPresenter)
+        }
     }
 
     fun cancelCurrentDownload() {
@@ -228,12 +239,13 @@ class WallpaperListPresenter
     }
 
     override fun destroy() {
-        if (view != null) {
-            KinglloyDownloader.getInstance(view!!.context())
-                    .unregisterListener(currentDownloadId, this)
+        view?.apply {
+            KinglloyDownloader.getInstance(context())
+                    .unregisterListener(currentDownloadId, this@WallpaperListPresenter)
+            context().contentResolver?.unregisterContentObserver(mContentObserver)
+            context().contentResolver?.unregisterContentObserver(mDownloadItemDeletedObserver)
         }
-        view?.context()?.contentResolver?.unregisterContentObserver(mContentObserver)
-        view?.context()?.contentResolver?.unregisterContentObserver(mDownloadItemDeletedObserver)
+
         getWallpapers.dispose()
         loadWallpaper.dispose()
         downloadingWallpaper = null
@@ -253,27 +265,30 @@ class WallpaperListPresenter
     }
 
     override fun onDownloadComplete(downloadId: Long, path: String?) {
-        view?.downloadComplete(downloadingWallpaper!!)
-        downloadingWallpaper = null
-        currentDownloadId = -1
-        downloadState = DOWNLOAD_NONE
-
-        KinglloyDownloader.getInstance(view!!.context())
-                .unregisterListener(downloadId, this)
-    }
-
-    override fun onDownloadError(downloadId: Long, errorCode: Int, errorMessage: String?) {
-        if (errorCode == ErrorCode.ERROR_CONNECT_TIMEOUT) {
-            view?.showDownloadError(downloadingWallpaper!!, NetworkConnectionException())
-        } else {
-            view?.showDownloadError(downloadingWallpaper!!, Exception(errorMessage))
+        view?.apply {
+            downloadComplete(downloadingWallpaper!!)
+            KinglloyDownloader.getInstance(context())
+                    .unregisterListener(downloadId, this@WallpaperListPresenter)
         }
         downloadingWallpaper = null
         currentDownloadId = -1
-        downloadState = DOWNLOAD_ERROR
+        downloadState = DOWNLOAD_NONE
+    }
 
-        KinglloyDownloader.getInstance(view!!.context())
-                .unregisterListener(downloadId, this)
+    override fun onDownloadError(downloadId: Long, errorCode: Int, errorMessage: String?) {
+        view?.apply {
+            if (errorCode == ErrorCode.ERROR_CONNECT_TIMEOUT) {
+                showDownloadError(downloadingWallpaper!!, NetworkConnectionException())
+            } else {
+                showDownloadError(downloadingWallpaper!!, Exception(errorMessage))
+            }
+            KinglloyDownloader.getInstance(context())
+                    .unregisterListener(downloadId, this@WallpaperListPresenter)
+        }
+
+        downloadingWallpaper = null
+        currentDownloadId = -1
+        downloadState = DOWNLOAD_ERROR
     }
 
     private inner class WallpapersObserver : DefaultObserver<List<Wallpaper>>() {

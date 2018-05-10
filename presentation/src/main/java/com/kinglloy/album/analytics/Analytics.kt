@@ -39,4 +39,8 @@ object Analytics : IAnalytics {
         bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, params[0])
         FirebaseAnalytics.getInstance(context).logEvent(event, bundle)
     }
+
+    override fun logEvent(context: Context, event: String, bundle: Bundle) {
+        FirebaseAnalytics.getInstance(context).logEvent(event, bundle)
+    }
 }

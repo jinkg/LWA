@@ -469,7 +469,7 @@ abstract class BaseWallpapersFragment : Fragment(), WallpaperListView {
 
         override fun getItemCount(): Int = wallpapers.size
 
-        override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): AdvanceViewHolder {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdvanceViewHolder {
             val view = LayoutInflater.from(activity)
                     .inflate(R.layout.advance_chosen_wallpaper_item, parent, false)
 

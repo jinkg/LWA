@@ -1,6 +1,7 @@
 package com.kinglloy.album.analytics
 
 import android.content.Context
+import android.os.Bundle
 
 /**
  * @author jinyalin
@@ -20,4 +21,6 @@ interface IAnalytics {
     fun logEvent(context: Context, event: String)
 
     fun logEvent(context: Context, event: String, vararg params: String)
+
+    fun logEvent(context: Context, event: String, bundle: Bundle)
 }

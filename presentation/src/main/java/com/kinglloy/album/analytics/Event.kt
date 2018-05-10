@@ -31,4 +31,10 @@ object Event {
     const val VIDEO_AD_LOADED = "video_ad_loaded"
 
     const val CHANNEL_KEY = "channel"
+
+    object WallpaperItem {
+        const val ITEM_NAME = "item_name"
+        const val ITEM_TYPE = "item_type"
+        const val ITEM_PROVIDER_NAME = "provider_name"
+    }
 }

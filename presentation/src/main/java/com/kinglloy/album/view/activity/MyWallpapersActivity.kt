@@ -431,7 +431,7 @@ class MyWallpapersActivity : AppCompatActivity(), MyWallpapersView {
 
         override fun getItemCount(): Int = wallpapers.size
 
-        override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): WallpaperViewHolder {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WallpaperViewHolder {
             val view = LayoutInflater.from(this@MyWallpapersActivity)
                     .inflate(R.layout.advance_chosen_wallpaper_item, parent, false)
 
