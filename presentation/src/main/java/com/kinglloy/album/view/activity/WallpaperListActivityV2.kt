@@ -134,10 +134,10 @@ class WallpaperListActivityV2 : AppCompatActivity(), SettingsView {
                 val appPackageName = "com.kinglloy.album"
                 try {
                     startActivity(Intent(Intent.ACTION_VIEW,
-                            Uri.parse("market://details?id=" + appPackageName)))
+                            Uri.parse("market://details?id=$appPackageName")))
                 } catch (anfe: android.content.ActivityNotFoundException) {
                     startActivity(Intent(Intent.ACTION_VIEW,
-                            Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)))
+                            Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")))
                 }
             }
             ID_VIDEO_PROBLEM -> {
@@ -170,10 +170,10 @@ class WallpaperListActivityV2 : AppCompatActivity(), SettingsView {
                 val appPackageName = "com.kinglloy.album.ultimate"
                 try {
                     startActivity(Intent(Intent.ACTION_VIEW,
-                            Uri.parse("market://details?id=" + appPackageName)))
+                            Uri.parse("market://details?id=$appPackageName")))
                 } catch (anfe: android.content.ActivityNotFoundException) {
                     startActivity(Intent(Intent.ACTION_VIEW,
-                            Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)))
+                            Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")))
                 }
 
             }
