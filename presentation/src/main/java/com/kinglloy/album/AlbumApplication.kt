@@ -5,11 +5,13 @@ import android.support.multidex.MultiDex
 import android.support.multidex.MultiDexApplication
 //import com.facebook.stetho.Stetho
 import com.kinglloy.album.analytics.Analytics
+import com.kinglloy.album.analytics.Event.RXJAVA_ERROR
 import com.kinglloy.album.data.log.LogUtil
 import com.kinglloy.album.extensions.DelegatesExt
 import com.kinglloy.album.injection.component.ApplicationComponent
 import com.kinglloy.album.injection.component.DaggerApplicationComponent
 import com.kinglloy.album.injection.modules.ApplicationModule
+import io.reactivex.plugins.RxJavaPlugins
 
 /**
  * @author jinyalin
@@ -17,28 +19,32 @@ import com.kinglloy.album.injection.modules.ApplicationModule
  */
 class AlbumApplication : MultiDexApplication() {
 
-    companion object {
-        private val TAG = "StyleApplication"
+  companion object {
+    private val TAG = "StyleApplication"
 
-        var instance: AlbumApplication by DelegatesExt.notNullSingleValue()
+    var instance: AlbumApplication by DelegatesExt.notNullSingleValue()
+  }
+
+  val applicationComponent: ApplicationComponent by lazy { initializeInjector() }
+
+  override fun attachBaseContext(base: Context) {
+    super.attachBaseContext(base)
+    MultiDex.install(this)
+  }
+
+  override fun onCreate() {
+    super.onCreate()
+    instance = this
+
+    applicationComponent.inject(this)
+
+    resetExceptionHandler()
+
+    Analytics.init(this)
+
+    RxJavaPlugins.setErrorHandler {
+      Analytics.logEvent(this, RXJAVA_ERROR)
     }
-
-    val applicationComponent: ApplicationComponent by lazy { initializeInjector() }
-
-    override fun attachBaseContext(base: Context) {
-        super.attachBaseContext(base)
-        MultiDex.install(this)
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-        instance = this
-
-        applicationComponent.inject(this)
-
-        resetExceptionHandler()
-
-        Analytics.init(this)
 
 //        if (BuildConfig.DEMO_MODE) {
 //            Stetho.initialize(
@@ -49,18 +55,17 @@ class AlbumApplication : MultiDexApplication() {
 //                                    Stetho.defaultInspectorModulesProvider(this))
 //                            .build())
 //        }
+  }
+
+  private fun initializeInjector() = DaggerApplicationComponent.builder()
+    .applicationModule(ApplicationModule(this))
+    .build()
+
+  private fun resetExceptionHandler() {
+    val exceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
+    Thread.setDefaultUncaughtExceptionHandler { t, e ->
+      LogUtil.F(TAG, "exception", e)
+      exceptionHandler.uncaughtException(t, e)
     }
-
-    private fun initializeInjector() = DaggerApplicationComponent.builder()
-            .applicationModule(ApplicationModule(this))
-            .build()
-
-
-    private fun resetExceptionHandler() {
-        val exceptionHandler = Thread.getDefaultUncaughtExceptionHandler()
-        Thread.setDefaultUncaughtExceptionHandler { t, e ->
-            LogUtil.F(TAG, "exception", e)
-            exceptionHandler.uncaughtException(t, e)
-        }
-    }
+  }
 }
