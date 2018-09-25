@@ -107,6 +107,10 @@ class HDRemoteWallpaperDataStore(val context: Context)
         throw UnsupportedOperationException("Remote HD wallpaper data store not support select preview.")
     }
 
+    override fun unSelectWallpaper(): Observable<Boolean> {
+        throw UnsupportedOperationException("Remote HD wallpaper data store not support unselect preview.")
+    }
+
     override fun previewWallpaper(wallpaperId: String, type: WallpaperType): Observable<Boolean> {
         throw UnsupportedOperationException("Remote HD wallpaper data store not support preview.")
     }

@@ -23,4 +23,5 @@
 
   <dimen name="loading_view_margin_top">-24dp</dimen>
   <dimen name="wallpaper_list_ad_height">60dp</dimen>
+  <dimen name="ad_loading_width">20dp</dimen>
 </resources>

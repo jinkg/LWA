@@ -41,6 +41,10 @@ class LiveWallpaperDataStoreImpl(private val context: Context,
         throw UnsupportedOperationException("Live wallpaper data store not support select previewing.")
     }
 
+    override fun unSelectWallpaper(): Observable<Boolean> {
+        throw UnsupportedOperationException("Live wallpaper data store not support unselect previewing.")
+    }
+
     override fun previewWallpaper(wallpaperId: String, type: WallpaperType): Observable<Boolean> {
         throw UnsupportedOperationException("Live wallpaper data store not support preview.")
     }

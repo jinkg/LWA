@@ -52,7 +52,7 @@ class DataHandler(val context: Context) {
         }
         val batch = ArrayList<ContentProviderOperation>()
         for (key in DATA_KEYS_IN_ORDER) {
-            LogUtil.D(TAG, "Building content provider operations for: " + key)
+            LogUtil.D(TAG, "Building content provider operations for: $key")
             handlerForKey[key]!!.makeContentProviderOperations(batch)
             LogUtil.D(TAG, "Content provider operations so far: " + batch.size)
         }

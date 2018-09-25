@@ -19,9 +19,13 @@
     <string name="advance_no_rate_download_msg">Not Now</string>
     <string name="advance_ad_download_msg">Show Ad and download</string>
 
+    <string name="not_now">Not Now</string>
+    <string name="see_ad">See AD</string>
+
     <string name="done">Done</string>
     <string name="confirm">Confirm</string>
     <string name="hint">Hint</string>
+    <string name="thanks">Thanks</string>
     <string name="downloading">Downloading</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
@@ -65,6 +69,8 @@
     <string name="drawer_item_donate_dsc">Give us some money.</string>
     <string name="drawer_item_rate">Rate</string>
     <string name="drawer_item_rate_dsc">Rate "Wallpapers" on Google play. Help more people find it!</string>
+    <string name="drawer_item_share">Share</string>
+    <string name="drawer_item_share_dsc">Share "Wallpapers" with friends.</string>
     <string name="drawer_item_my_wallpapers">My Wallpapers</string>
     <string name="drawer_item_my_wallpapers_dsc">Manage downloaded wallpapers</string>
     <string name="drawer_item_about">About</string>
@@ -169,6 +175,15 @@
         <b><a href="http://www.kinglloy.com/donate/">Click to donate</a></b>
     ]]></string>
 
+    <string name="see_ad_hint"><![CDATA[
+        Watch AD to support the developer!<br>
+    ]]>
+    </string>
+
+    <string name="share_title">Live wallpapers</string>
+    <string name="share_text">I am using Live Wallpaper Album, which contains hundreds of cool live wallpapers.
+        https://play.google.com/store/apps/details?id=%s</string>
+
     <string name="welcome">To help developer release new features, and if you like this wallpaper application, you can watch the ad to support.</string>
 
     <string name="ad_prompt">Thank you for your support, we will try to make the application better. Click button to click again.</string>
@@ -183,4 +198,7 @@
     <!--<string name="advance_banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>-->
     <!--<string name="advance_inter_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/1033173712</string>-->
     <!--<string name="advance_video_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/5224354917</string>-->
+
+    <string name="ad_version_package_name" translatable="false">com.kinglloy.album</string>
+    <string name="pro_version_package_name" translatable="false">com.kinglloy.album.ultimate</string>
 </resources>

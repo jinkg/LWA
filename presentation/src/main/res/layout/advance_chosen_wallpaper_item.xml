@@ -1,83 +1,85 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:layout_margin="2dp"
+  android:foreground="?selectableItemBackground">
+
+  <FrameLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="2dp"
-    android:foreground="?selectableItemBackground">
+    android:layout_height="match_parent">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <ImageView
+      android:id="@+id/thumbnail"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:scaleType="centerCrop" />
 
-        <ImageView
-            android:id="@+id/thumbnail"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop" />
+    <com.kinglloy.album.view.component.ShadowDipsTextView
+      android:id="@+id/tvName"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom|start"
+      android:background="@color/color_name_bg"
+      android:ellipsize="end"
+      android:maxLines="1"
+      android:paddingBottom="@dimen/advance_name_top_margin"
+      android:paddingEnd="@dimen/advance_name_margin"
+      android:paddingStart="@dimen/advance_name_margin"
+      android:paddingTop="@dimen/advance_name_top_margin"
+      android:textColor="@color/wallpaper_detail_text_color"
+      android:textSize="@dimen/text_size_medium"
+      app:shadowColor="@color/shadow_color"
+      app:shadowDx="0dp"
+      app:shadowDy="1dp"
+      app:shadowRadius="3dp" />
+  </FrameLayout>
 
-        <com.kinglloy.album.view.component.ShadowDipsTextView
-            android:id="@+id/tvName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|start"
-            android:background="@color/color_name_bg"
-            android:paddingBottom="@dimen/advance_name_top_margin"
-            android:paddingEnd="@dimen/advance_name_margin"
-            android:paddingStart="@dimen/advance_name_margin"
-            android:paddingTop="@dimen/advance_name_top_margin"
-            android:textColor="@color/wallpaper_detail_text_color"
-            android:textSize="@dimen/text_size_medium"
-            app:shadowColor="@color/shadow_color"
-            app:shadowDx="0dp"
-            app:shadowDy="1dp"
-            app:shadowRadius="3dp" />
-    </FrameLayout>
+  <FrameLayout
+    android:id="@+id/current_select_overlay"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#8fff"
+    android:visibility="gone">
 
-    <FrameLayout
-        android:id="@+id/current_select_overlay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#8fff"
-        android:visibility="gone">
+    <ImageView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:src="@drawable/ic_wallpaper_current"
+      android:tint="@color/color_wallpaper_item_tint" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_wallpaper_current"
-            android:tint="@color/color_wallpaper_item_tint" />
+  </FrameLayout>
 
-    </FrameLayout>
+  <FrameLayout
+    android:id="@+id/checked_overlay"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#8fff"
+    android:visibility="gone">
 
-    <FrameLayout
-        android:id="@+id/checked_overlay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#8fff"
-        android:visibility="gone">
+    <ImageView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:src="@drawable/advance_chosen_photo_selected"
+      android:tint="@color/color_wallpaper_item_tint" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/advance_chosen_photo_selected"
-            android:tint="@color/color_wallpaper_item_tint" />
+  </FrameLayout>
 
-    </FrameLayout>
+  <FrameLayout
+    android:id="@+id/download_overlay"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="gone">
 
-    <FrameLayout
-        android:id="@+id/download_overlay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
+    <ImageView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:src="@drawable/advance_chosen_download"
+      android:tint="@color/color_wallpaper_item_tint" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/advance_chosen_download"
-            android:tint="@color/color_wallpaper_item_tint" />
-
-    </FrameLayout>
+  </FrameLayout>
 
 </FrameLayout>

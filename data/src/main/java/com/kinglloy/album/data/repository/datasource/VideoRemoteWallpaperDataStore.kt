@@ -108,6 +108,10 @@ class VideoRemoteWallpaperDataStore(val context: Context,
         throw UnsupportedOperationException("Remote video wallpaper data store not support select preview.")
     }
 
+    override fun unSelectWallpaper(): Observable<Boolean> {
+        throw UnsupportedOperationException("Remove video wallpaper data store not support unselect previewing.")
+    }
+
     override fun previewWallpaper(wallpaperId: String, type: WallpaperType): Observable<Boolean> {
         throw UnsupportedOperationException("Remote video wallpaper data store not support previewing wallpaper.")
     }

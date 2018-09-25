@@ -20,9 +20,13 @@
     <string name="advance_no_rate_download_msg">稍后打分</string>
     <string name="advance_ad_download_msg">观看广告并下载</string>
 
+    <string name="not_now">下次再说</string>
+    <string name="see_ad">观看广告</string>
+
     <string name="done">完成</string>
     <string name="confirm">确定</string>
     <string name="hint">提示</string>
+    <string name="thanks">感谢</string>
     <string name="downloading">下载中，请稍后</string>
     <string name="edit">编辑</string>
     <string name="delete">删除</string>
@@ -60,6 +64,8 @@
     <string name="drawer_item_make_me_better">让我做得更好</string>
     <string name="drawer_item_see_ad">观看广告(记得点击进入广告详情噢)</string>
     <string name="drawer_item_see_ad_dsc">帮助我赚取一些小费</string>
+    <string name="drawer_item_share">分享</string>
+    <string name="drawer_item_share_dsc">将动态壁纸分享给朋友</string>
     <string name="drawer_item_remove_ad">获取旗舰版</string>
     <string name="drawer_item_remove_ad_dsc">移除广告，更多壁纸和支持</string>
     <string name="drawer_item_donate">捐赠</string>
@@ -167,6 +173,15 @@
 
         <b><a href="http://www.kinglloy.com/donate/">点此捐赠</a></b>
     ]]></string>
+
+    <string name="see_ad_hint"><![CDATA[
+        观看广告来支持作者的努力！<br>
+    ]]>
+    </string>
+
+    <string name="share_title">动态壁纸集</string>
+    <string name="share_text">我正在使用《动态壁纸集》，包含数百款炫酷动态壁纸：
+        https://play.google.com/store/apps/details?%s</string>
 
     <string name="welcome">如果你喜欢这款壁纸应用，并且希望开发更多新特性，你可以通过观看并点击广告来支持我们。</string>
 

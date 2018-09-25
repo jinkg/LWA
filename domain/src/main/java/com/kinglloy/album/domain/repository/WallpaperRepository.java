@@ -36,6 +36,8 @@ public interface WallpaperRepository {
 
     Observable<Boolean> selectPreviewingWallpaper();
 
+    Observable<Boolean> unSelectPreviewingWallpaper();
+
     Observable<Boolean> previewWallpaper(String wallpaperId, WallpaperType type);
 
     Wallpaper getPreviewingWallpaper();

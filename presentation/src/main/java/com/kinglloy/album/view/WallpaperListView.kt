@@ -8,27 +8,29 @@ import com.kinglloy.album.model.WallpaperItem
  * @since 2017/7/28.
  */
 interface WallpaperListView : LoadingDataView {
-    fun renderWallpapers(wallpapers: List<WallpaperItem>)
+  fun renderWallpapers(wallpapers: List<WallpaperItem>)
 
-    fun selectWallpaper(wallpaper: WallpaperItem)
+  fun selectWallpaper(wallpaper: WallpaperItem)
 
-    fun showEmpty()
+  fun unSelectWallpaper(wallpaper: WallpaperItem)
 
-    fun complete()
+  fun showEmpty()
 
-    fun wallpaperSelected(wallpaperId: String)
+  fun complete()
 
-    fun showDownloadHintDialog(item: WallpaperItem)
+  fun wallpaperSelected(wallpaperId: String)
 
-    fun showDownloadingDialog(item: WallpaperItem)
+  fun showDownloadHintDialog(item: WallpaperItem)
 
-    fun updateDownloadingProgress(downloaded: Long)
+  fun showDownloadingDialog(item: WallpaperItem)
 
-    fun downloadComplete(item: WallpaperItem)
+  fun updateDownloadingProgress(downloaded: Long)
 
-    fun showDownloadError(item: WallpaperItem, e: Exception)
+  fun downloadComplete(item: WallpaperItem)
 
-    fun getWallpaperType(): WallpaperType
+  fun showDownloadError(item: WallpaperItem, e: Exception)
 
-    fun deletedDownloadWallpaper(wallpaperId: String)
+  fun getWallpaperType(): WallpaperType
+
+  fun deletedDownloadWallpaper(wallpaperId: String)
 }

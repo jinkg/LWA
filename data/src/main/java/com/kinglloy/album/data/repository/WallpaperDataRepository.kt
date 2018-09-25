@@ -18,67 +18,71 @@ import javax.inject.Singleton
  */
 @Singleton
 class WallpaperDataRepository
-@Inject constructor(val context: Context,
-                    val factory: WallpaperDataStoreFactory,
-                    private val wallpaperMapper: WallpaperEntityMapper)
-    : WallpaperRepository {
+@Inject constructor(
+  val context: Context,
+  val factory: WallpaperDataStoreFactory,
+  private val wallpaperMapper: WallpaperEntityMapper
+) : WallpaperRepository {
 
-    init {
-        Account.createSyncAccount(context)
-        SyncHelper.updateSyncInterval(context)
-    }
+  init {
+    Account.createSyncAccount(context)
+    SyncHelper.updateSyncInterval(context)
+  }
 
-    override fun getLiveWallpapers(): Observable<List<Wallpaper>> =
-            factory.createLiveDataStore().getWallpaperEntities().map(wallpaperMapper::transformList)
+  override fun getLiveWallpapers(): Observable<List<Wallpaper>> =
+    factory.createLiveDataStore().getWallpaperEntities().map(wallpaperMapper::transformList)
 
-    override fun getStyleWallpapers(): Observable<MutableList<Wallpaper>> =
-            factory.createStyleDataStore().getWallpaperEntities().map(wallpaperMapper::transformList)
+  override fun getStyleWallpapers(): Observable<MutableList<Wallpaper>> =
+    factory.createStyleDataStore().getWallpaperEntities().map(wallpaperMapper::transformList)
 
-    override fun getVideoWallpapers(): Observable<MutableList<Wallpaper>> =
-            factory.createVideoDataStore().getWallpaperEntities().map(wallpaperMapper::transformList)
+  override fun getVideoWallpapers(): Observable<MutableList<Wallpaper>> =
+    factory.createVideoDataStore().getWallpaperEntities().map(wallpaperMapper::transformList)
 
-    override fun getHDWallpapers(): Observable<MutableList<Wallpaper>> =
-            factory.createHDDataStore().getWallpaperEntities().map(wallpaperMapper::transformList)
+  override fun getHDWallpapers(): Observable<MutableList<Wallpaper>> =
+    factory.createHDDataStore().getWallpaperEntities().map(wallpaperMapper::transformList)
 
+  override fun loadLiveWallpapers(): Observable<List<Wallpaper>> {
+    return factory.createRemoteLiveDataStore().getWallpaperEntities()
+      .map(wallpaperMapper::transformList)
+  }
 
-    override fun loadLiveWallpapers(): Observable<List<Wallpaper>> {
-        return factory.createRemoteLiveDataStore().getWallpaperEntities()
-                .map(wallpaperMapper::transformList)
-    }
+  override fun loadStyleWallpapers(): Observable<MutableList<Wallpaper>> {
+    return factory.createRemoteStyleDataStore().getWallpaperEntities()
+      .map(wallpaperMapper::transformList)
+  }
 
-    override fun loadStyleWallpapers(): Observable<MutableList<Wallpaper>> {
-        return factory.createRemoteStyleDataStore().getWallpaperEntities()
-                .map(wallpaperMapper::transformList)
-    }
+  override fun loadVideoWallpapers(): Observable<MutableList<Wallpaper>> {
+    return factory.createRemoteVideoDataStore().getWallpaperEntities()
+      .map(wallpaperMapper::transformList)
+  }
 
-    override fun loadVideoWallpapers(): Observable<MutableList<Wallpaper>> {
-        return factory.createRemoteVideoDataStore().getWallpaperEntities()
-                .map(wallpaperMapper::transformList)
-    }
+  override fun loadHDWallpapers(): Observable<MutableList<Wallpaper>> {
+    return factory.createRemoteHDDataStore().getWallpaperEntities()
+      .map(wallpaperMapper::transformList)
+  }
 
-    override fun loadHDWallpapers(): Observable<MutableList<Wallpaper>> {
-        return factory.createRemoteHDDataStore().getWallpaperEntities()
-                .map(wallpaperMapper::transformList)
-    }
+  override fun getDownloadedWallpapers(): Observable<MutableList<Wallpaper>> =
+    factory.createManageDataStore().getDownloadedWallpaperEntities()
+      .map(wallpaperMapper::transformList)
 
-    override fun getDownloadedWallpapers(): Observable<MutableList<Wallpaper>> =
-            factory.createManageDataStore().getDownloadedWallpaperEntities()
-                    .map(wallpaperMapper::transformList)
+  override fun deleteDownloadedWallpapers(wallpapers: MutableList<Wallpaper>) =
+    factory.createManageDataStore().deleteDownloadedWallpapers(wallpapers.map(wallpaperMapper::transformToEntity))
 
-    override fun deleteDownloadedWallpapers(wallpapers: MutableList<Wallpaper>) =
-            factory.createManageDataStore().deleteDownloadedWallpapers(wallpapers.map(wallpaperMapper::transformToEntity))
+  override fun previewWallpaper(wallpaperId: String, type: WallpaperType): Observable<Boolean> =
+    factory.createManageDataStore().previewWallpaper(wallpaperId, type)
 
-    override fun previewWallpaper(wallpaperId: String, type: WallpaperType): Observable<Boolean> =
-            factory.createManageDataStore().previewWallpaper(wallpaperId, type)
+  override fun selectPreviewingWallpaper():
+      Observable<Boolean> = factory.createManageDataStore().selectPreviewingWallpaper()
 
-    override fun selectPreviewingWallpaper():
-            Observable<Boolean> = factory.createManageDataStore().selectPreviewingWallpaper()
+  override fun unSelectPreviewingWallpaper():
+      Observable<Boolean> = factory.createManageDataStore().unSelectWallpaper()
 
-    override fun getPreviewingWallpaper(): Wallpaper =
-            wallpaperMapper.transform(factory.createManageDataStore().getPreviewWallpaperEntity())
+  override fun getPreviewingWallpaper(): Wallpaper =
+    wallpaperMapper.transform(factory.createManageDataStore().getPreviewWallpaperEntity())
 
-    override fun activeService(serviceType: Int): Observable<Boolean>
-            = factory.createManageDataStore().activeService(serviceType)
+  override fun activeService(serviceType: Int): Observable<Boolean> =
+    factory.createManageDataStore().activeService(serviceType)
 
-    override fun getActiveService(): Observable<Int> = factory.createManageDataStore().getActiveService()
+  override fun getActiveService(): Observable<Int> =
+    factory.createManageDataStore().getActiveService()
 }
