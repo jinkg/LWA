@@ -80,6 +80,7 @@ class WallpaperListActivityV2 : AppCompatActivity(), SettingsView {
     const val ID_GET_PRO = 6000L
 
     const val ID_RATE = 7000L
+    const val ID_RATE_SUB = 7001L
 
     const val ID_SHARE = 8000L
   }
@@ -138,7 +139,7 @@ class WallpaperListActivityV2 : AppCompatActivity(), SettingsView {
 
         dialogBuilder.build().show()
       }
-      ID_RATE -> {
+      ID_RATE, ID_RATE_SUB -> {
         val appPackageName =
           if (PackageUtil.isPro(this))
             getString(R.string.pro_version_package_name)
@@ -286,7 +287,7 @@ class WallpaperListActivityV2 : AppCompatActivity(), SettingsView {
         SecondaryDrawerItem().withName(R.string.drawer_item_rate)
           .withDescription(R.string.drawer_item_rate_dsc)
           .withSelectable(false)
-          .withIdentifier(ID_RATE)
+          .withIdentifier(ID_RATE_SUB)
           .withLevel(2)
           .withOnDrawerItemClickListener(drawerItemClick)
       )
@@ -306,7 +307,7 @@ class WallpaperListActivityV2 : AppCompatActivity(), SettingsView {
         SecondaryDrawerItem().withName(R.string.drawer_item_rate)
           .withDescription(R.string.drawer_item_rate_dsc)
           .withSelectable(false)
-          .withIdentifier(ID_RATE)
+          .withIdentifier(ID_RATE_SUB)
           .withLevel(2)
           .withOnDrawerItemClickListener(drawerItemClick),
         SecondaryDrawerItem().withName(R.string.drawer_item_share)

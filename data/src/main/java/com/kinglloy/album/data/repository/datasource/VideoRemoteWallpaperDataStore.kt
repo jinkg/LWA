@@ -82,9 +82,7 @@ class VideoRemoteWallpaperDataStore(val context: Context,
                         null, null, null, null)
                 validWallpapers.addAll(WallpaperEntity.videoWallpaperValues(cursor))
             } finally {
-                if (cursor != null) {
-                    cursor.close()
-                }
+                cursor?.close()
             }
 
             if (validWallpapers.isEmpty()) {
