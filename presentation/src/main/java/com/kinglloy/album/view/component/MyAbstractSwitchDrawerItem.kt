@@ -12,6 +12,7 @@ import com.mikepenz.materialdrawer.model.BaseViewHolder
  * @author jinyalin
  * @since 2017/11/4.
  */
+@Suppress("UNCHECKED_CAST")
 abstract class MyAbstractSwitchDrawerItem<Item : MyAbstractSwitchDrawerItem<Item>>
     : BaseDescribeableDrawerItem<Item, MyAbstractSwitchDrawerItem.ViewHolder>() {
 
@@ -60,7 +61,7 @@ abstract class MyAbstractSwitchDrawerItem<Item : MyAbstractSwitchDrawerItem<Item
         return com.mikepenz.materialdrawer.R.layout.material_drawer_item_switch
     }
 
-    override fun bindView(viewHolder: ViewHolder, payloads: List<*>?) {
+    override fun bindView(viewHolder: ViewHolder, payloads: List<Any>) {
         super.bindView(viewHolder, payloads)
 
         //bind the basic view parts

@@ -363,7 +363,9 @@ class WallpaperListPresenter
 
   override fun onDownloadComplete(downloadId: Long, path: String?) {
     view?.apply {
-      downloadComplete(downloadingWallpaper!!)
+      if (downloadingWallpaper != null) {
+        downloadComplete(downloadingWallpaper!!)
+      }
       KinglloyDownloader.getInstance(context())
         .unregisterListener(downloadId, this@WallpaperListPresenter)
     }

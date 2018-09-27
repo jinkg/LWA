@@ -8,11 +8,11 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
+import android.support.v4.text.HtmlCompat
 import android.support.v4.view.ViewCompat
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.text.Html
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
@@ -341,25 +341,33 @@ abstract class BaseWallpapersFragment : Fragment(), WallpaperListView {
     val content =
       if (item.size > 0) {
         if (showAd) {
-          Html.fromHtml(
+          HtmlCompat.fromHtml(
             getString(
               R.string.advance_download_size_hint_ad,
               formatSizeToString(item.size)
-            )
+            ),
+            HtmlCompat.FROM_HTML_MODE_LEGACY
           )
         } else {
-          Html.fromHtml(
+          HtmlCompat.fromHtml(
             getString(
               R.string.advance_download_size_hint,
               formatSizeToString(item.size)
-            )
+            ),
+            HtmlCompat.FROM_HTML_MODE_LEGACY
           )
         }
       } else {
         if (showAd) {
-          Html.fromHtml(getString(R.string.advance_download_hint))
+          HtmlCompat.fromHtml(
+            getString(R.string.advance_download_hint),
+            HtmlCompat.FROM_HTML_MODE_LEGACY
+          )
         } else {
-          Html.fromHtml(getString(R.string.advance_download_hint_ad))
+          HtmlCompat.fromHtml(
+            getString(R.string.advance_download_hint_ad),
+            HtmlCompat.FROM_HTML_MODE_LEGACY
+          )
         }
       }
 
@@ -394,14 +402,17 @@ abstract class BaseWallpapersFragment : Fragment(), WallpaperListView {
       }
     val content =
       if (item.size > 0) {
-        Html.fromHtml(
+        HtmlCompat.fromHtml(
           getString(
             R.string.advance_download_size_hint_rate,
             formatSizeToString(item.size)
-          )
+          ), HtmlCompat.FROM_HTML_MODE_LEGACY
         )
       } else {
-        Html.fromHtml(getString(R.string.advance_download_hint_rate))
+        HtmlCompat.fromHtml(
+          getString(R.string.advance_download_hint_rate),
+          HtmlCompat.FROM_HTML_MODE_LEGACY
+        )
       }
 
     val dialogBuilder = MaterialDialog.Builder(activity!!)

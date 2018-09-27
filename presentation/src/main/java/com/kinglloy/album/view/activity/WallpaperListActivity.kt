@@ -5,11 +5,11 @@ import android.graphics.drawable.ColorDrawable
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
+import android.support.v4.text.HtmlCompat
 import android.support.v4.view.ViewCompat
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.text.Html
 import android.text.TextUtils
 import android.view.*
 import android.widget.ImageView
@@ -37,16 +37,15 @@ import javax.inject.Inject
 class WallpaperListActivity : AppCompatActivity(), WallpaperListView {
 
   companion object {
-    val TAG = "AdvanceSettingActivity"
-    val LOAD_STATE = "load_state"
+    const val TAG = "AdvanceSettingActivity"
+    const val LOAD_STATE = "load_state"
 
-    val LOAD_STATE_NORMAL = 0
-    val LOAD_STATE_LOADING = 1
-    val LOAD_STATE_RETRY = 2
+    const val LOAD_STATE_NORMAL = 0
+    const val LOAD_STATE_LOADING = 1
+    const val LOAD_STATE_RETRY = 2
   }
 
-  @Inject
-  lateinit internal var presenter: MainWallpaperListPresenter
+  @Inject internal lateinit var presenter: MainWallpaperListPresenter
 
   val wallpapers = ArrayList<WallpaperItem>()
 
@@ -83,12 +82,10 @@ class WallpaperListActivity : AppCompatActivity(), WallpaperListView {
   }
 
   private fun handleState() {
-    if (loadState == LOAD_STATE_NORMAL) {
-      presenter.initialize()
-    } else if (loadState == LOAD_STATE_LOADING) {
-      presenter.loadAdvanceWallpaper()
-    } else if (loadState == LOAD_STATE_RETRY) {
-      showRetry()
+    when (loadState) {
+      LOAD_STATE_NORMAL -> presenter.initialize()
+      LOAD_STATE_LOADING -> presenter.loadAdvanceWallpaper()
+      LOAD_STATE_RETRY -> showRetry()
     }
   }
 
@@ -198,7 +195,12 @@ class WallpaperListActivity : AppCompatActivity(), WallpaperListView {
       val dialogBuilder = MaterialDialog.Builder(this)
         .iconRes(R.drawable.advance_wallpaper_msg)
         .title(R.string.hint)
-        .content(Html.fromHtml(getString(R.string.advance_hint)))
+        .content(
+          HtmlCompat.fromHtml(
+            getString(R.string.advance_hint),
+            HtmlCompat.FROM_HTML_MODE_LEGACY
+          )
+        )
         .positiveText(R.string.confirm)
 
       dialogBuilder.build().show()
@@ -318,7 +320,12 @@ class WallpaperListActivity : AppCompatActivity(), WallpaperListView {
     val dialogBuilder = MaterialDialog.Builder(this)
       .iconRes(R.drawable.advance_wallpaper_msg)
       .title(R.string.hint)
-      .content(Html.fromHtml(getString(R.string.advance_download_hint)))
+      .content(
+        HtmlCompat.fromHtml(
+          getString(R.string.advance_download_hint),
+          HtmlCompat.FROM_HTML_MODE_LEGACY
+        )
+      )
       .positiveText(R.string.advance_download_msg)
       .onPositive(downloadCallback)
 

@@ -9,10 +9,10 @@ import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.text.HtmlCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
-import android.text.Html
 import android.view.View
 import com.afollestad.materialdialogs.MaterialDialog
 import com.google.android.gms.ads.AdListener
@@ -134,7 +134,12 @@ class WallpaperListActivityV2 : AppCompatActivity(), SettingsView {
         val dialogBuilder = MaterialDialog.Builder(this)
           .iconRes(R.drawable.advance_wallpaper_msg)
           .title(R.string.hint)
-          .content(Html.fromHtml(getString(R.string.donate_hint)))
+          .content(
+            HtmlCompat.fromHtml(
+              getString(R.string.donate_hint),
+              HtmlCompat.FROM_HTML_MODE_LEGACY
+            )
+          )
           .positiveText(R.string.confirm)
 
         dialogBuilder.build().show()
@@ -169,7 +174,12 @@ class WallpaperListActivityV2 : AppCompatActivity(), SettingsView {
         val dialogBuilder = MaterialDialog.Builder(this)
           .iconRes(R.drawable.advance_wallpaper_msg)
           .title(R.string.hint)
-          .content(Html.fromHtml(getString(R.string.video_hint)))
+          .content(
+            HtmlCompat.fromHtml(
+              getString(R.string.video_hint),
+              HtmlCompat.FROM_HTML_MODE_LEGACY
+            )
+          )
           .positiveText(R.string.confirm)
 
         dialogBuilder.build().show()
@@ -178,7 +188,12 @@ class WallpaperListActivityV2 : AppCompatActivity(), SettingsView {
         val dialogBuilder = MaterialDialog.Builder(this)
           .iconRes(R.drawable.advance_wallpaper_msg)
           .title(R.string.hint)
-          .content(Html.fromHtml(getString(R.string.advance_hint)))
+          .content(
+            HtmlCompat.fromHtml(
+              getString(R.string.advance_hint),
+              HtmlCompat.FROM_HTML_MODE_LEGACY
+            )
+          )
           .positiveText(R.string.confirm)
 
         dialogBuilder.build().show()
@@ -443,7 +458,10 @@ class WallpaperListActivityV2 : AppCompatActivity(), SettingsView {
         )
       }
 
-    val content = Html.fromHtml(getString(R.string.see_ad_hint))
+    val content = HtmlCompat.fromHtml(
+      getString(R.string.see_ad_hint),
+      HtmlCompat.FROM_HTML_MODE_LEGACY
+    )
 
     val dialogBuilder = MaterialDialog.Builder(this)
       .iconRes(R.drawable.advance_wallpaper_msg)
