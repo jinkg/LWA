@@ -19,9 +19,9 @@ import com.kinglloy.album.data.repository.datasource.provider.settings
  * @author jinyalin
  * @since 2017/11/4.
  */
-val STYLE_SETTINGS_MAX_BLUR = 500
-val STYLE_SETTINGS_MAX_DIM = 128
-val STYLE_SETTINGS_MAX_GREY = 128
+const val STYLE_SETTINGS_MAX_BLUR = 500
+const val STYLE_SETTINGS_MAX_DIM = 128
+const val STYLE_SETTINGS_MAX_GREY = 128
 
 fun updateStyleSettings(context: Context, value: ContentValues) {
     val enable = value.getAsBoolean(COLUMN_NAME_ENABLE_EFFECT)
@@ -30,7 +30,7 @@ fun updateStyleSettings(context: Context, value: ContentValues) {
     val grey = value.getAsInteger(COLUMN_NAME_GREY)
 
     val editor = context.getSharedPreferences(
-            StyleWallpaperSettings.Companion.SP_NAME, Context.MODE_PRIVATE).edit()
+            StyleWallpaperSettings.SP_NAME, Context.MODE_PRIVATE).edit()
     if (enable != null) {
         editor.putBoolean(COLUMN_NAME_ENABLE_EFFECT, enable)
     }
@@ -48,7 +48,7 @@ fun updateStyleSettings(context: Context, value: ContentValues) {
 
 fun readStyleSettings(context: Context): Cursor {
     val sp = context.getSharedPreferences(
-            StyleWallpaperSettings.Companion.SP_NAME, Context.MODE_PRIVATE)
+            StyleWallpaperSettings.SP_NAME, Context.MODE_PRIVATE)
     val enable = sp.getBoolean(COLUMN_NAME_ENABLE_EFFECT, true)
     val blur = sp.getInt(COLUMN_NAME_BLUR, 150)
     val dim = sp.getInt(COLUMN_NAME_DIM, 64)

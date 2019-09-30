@@ -67,7 +67,7 @@
     <string name="drawer_item_share">分享</string>
     <string name="drawer_item_share_dsc">将动态壁纸分享给朋友</string>
     <string name="drawer_item_remove_ad">获取旗舰版</string>
-    <string name="drawer_item_remove_ad_dsc">移除广告，更多壁纸和支持</string>
+    <string name="drawer_item_remove_ad_dsc">让动态壁纸集变得更好</string>
     <string name="drawer_item_donate">捐赠</string>
     <string name="drawer_item_donate_dsc">给我一点钱</string>
     <string name="drawer_item_rate">五星好评</string>
@@ -131,12 +131,10 @@
 
     <string name="advance_download_hint"><![CDATA[
         使用这款壁纸之前需要先下载（几百KB或几MB）<br><br>
-        如果你已经链接上WI-FI，准备好下载，请点击下面的下载按钮
     ]]></string>
 
     <string name="advance_download_size_hint"><![CDATA[
         这款壁纸大小为 %s，使用之前需要先下载。<br><br>
-        如果你已经链接上WI-FI，准备好下载，请点击下面的下载按钮
     ]]></string>
 
     <string name="advance_download_hint_ad"><![CDATA[

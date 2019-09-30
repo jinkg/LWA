@@ -379,9 +379,9 @@ class WallpaperListActivityV2 : AppCompatActivity(), SettingsView {
     if (PackageUtil.isPro(this)) {
       initDrawerUltimate(savedInstanceState)
     } else {
-      MobileAds.initialize(this, getString(R.string.app_ad_id))
+//      MobileAds.initialize(this, getString(R.string.app_ad_id))
       initDrawerWithAd(savedInstanceState)
-      initAdBanner()
+//      initAdBanner()
     }
 
     val tabLayout = findViewById<TabLayout>(R.id.wallpaper_types_tab)
@@ -399,7 +399,7 @@ class WallpaperListActivityV2 : AppCompatActivity(), SettingsView {
     presenter.initialize()
 
 
-    maybeOpenAdActivity()
+//    maybeOpenAdActivity()
   }
 
   override fun onDestroy() {

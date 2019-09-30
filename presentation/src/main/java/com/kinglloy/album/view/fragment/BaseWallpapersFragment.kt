@@ -150,7 +150,7 @@ abstract class BaseWallpapersFragment : Fragment(), WallpaperListView {
       .addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
         override fun onGlobalLayout() {
           val width = wallpaperList.width -
-              wallpaperList.paddingStart - wallpaperList.paddingEnd
+            wallpaperList.paddingStart - wallpaperList.paddingEnd
           if (width <= 0) {
             return
           }
@@ -182,11 +182,11 @@ abstract class BaseWallpapersFragment : Fragment(), WallpaperListView {
         .getDimensionPixelSize(R.dimen.gallery_chosen_photo_grid_spacing)
       ViewCompat.onApplyWindowInsets(
         v, insets.replaceSystemWindowInsets(
-          insets.systemWindowInsetLeft + gridSpacing,
-          gridSpacing,
-          insets.systemWindowInsetRight + gridSpacing,
-          insets.systemWindowInsetBottom + insets.systemWindowInsetTop + gridSpacing
-        )
+        insets.systemWindowInsetLeft + gridSpacing,
+        gridSpacing,
+        insets.systemWindowInsetRight + gridSpacing,
+        insets.systemWindowInsetBottom + insets.systemWindowInsetTop + gridSpacing
+      )
       )
 
       insets
@@ -435,8 +435,12 @@ abstract class BaseWallpapersFragment : Fragment(), WallpaperListView {
     if (adRandom == null) {
       adRandom = Random()
     }
-    val num = adRandom!!.nextInt(10) + 1
-    return num % 2 + 1
+    val num = adRandom!!.nextInt(10)
+    return if (num == 0) {
+      PROMOTE_RATE
+    } else {
+      PROMOTE_NONE
+    }
   }
 
   override fun showDownloadingDialog(item: WallpaperItem) {
@@ -509,7 +513,7 @@ abstract class BaseWallpapersFragment : Fragment(), WallpaperListView {
           item.lazyDownload,
           item.storePath
         ) || (downloadingItem != null
-            && TextUtils.equals(downloadingItem.wallpaperId, item.wallpaperId))
+          && TextUtils.equals(downloadingItem.wallpaperId, item.wallpaperId))
       ) {
         holder.downloadOverlayView.visibility = View.VISIBLE
       } else {
@@ -517,7 +521,7 @@ abstract class BaseWallpapersFragment : Fragment(), WallpaperListView {
       }
 
       holder.tvName.visibility =
-          if (item.pro || !TextUtils.isEmpty(item.name)) View.VISIBLE else View.GONE
+        if (item.pro || !TextUtils.isEmpty(item.name)) View.VISIBLE else View.GONE
       holder.tvName.background = if (item.pro) proBackground else normalBackground
       holder.tvName.text = item.name
     }

@@ -58,16 +58,17 @@
       android:layout_centerInParent="true"
       android:gravity="center"
       android:orientation="vertical">
+
       <me.zhanghai.android.materialprogressbar.MaterialProgressBar
         android:id="@+id/ad_progress"
         android:layout_width="@dimen/ad_loading_width"
         android:layout_height="@dimen/ad_loading_width" />
 
       <TextView
+        style="@style/Widget.Album.Text.Prompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/string_ad_text"
-        style="@style/Widget.Album.Text.Prompt" />
+        android:text="@string/string_ad_text" />
 
     </LinearLayout>
 
@@ -75,8 +76,9 @@
       android:id="@+id/adView"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_centerHorizontal="true"
       android:layout_centerInParent="true"
+      android:layout_centerHorizontal="true"
+      android:visibility="gone"
       app:adSize="SMART_BANNER"
       app:adUnitId="@string/advance_banner_ad_unit_id" />
   </RelativeLayout>

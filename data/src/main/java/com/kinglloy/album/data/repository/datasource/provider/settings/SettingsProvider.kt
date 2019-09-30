@@ -18,11 +18,10 @@ class SettingsProvider : ContentProvider() {
     override fun insert(uri: Uri, values: ContentValues): Uri? = null
 
     override fun query(uri: Uri, projection: Array<out String>?, selection: String?,
-                       selectionArgs: Array<out String>?, sortOrder: String?): Cursor {
-        val settingsEnum = uriMatcher.matchUri(uri)
-        return when (settingsEnum) {
+                       selectionArgs: Array<out String>?, sortOrder: String?): Cursor? {
+        return if (context == null) null else when (uriMatcher.matchUri(uri)) {
             SettingsUriEnum.STYLE_WALLPAPER_SETTINGS -> {
-                readStyleSettings(context)
+                readStyleSettings(context!!)
             }
         }
     }
@@ -34,8 +33,7 @@ class SettingsProvider : ContentProvider() {
 
     override fun update(uri: Uri, values: ContentValues, selection: String?,
                         selectionArgs: Array<out String>?): Int {
-        val settingsEnum = uriMatcher.matchUri(uri)
-        return when (settingsEnum) {
+        return when (uriMatcher.matchUri(uri)) {
             SettingsUriEnum.STYLE_WALLPAPER_SETTINGS -> {
                 updateStyleSettings(context, values)
                 notifyChange(context, SettingsContract.StyleWallpaperSettings.CONTENT_URI)
